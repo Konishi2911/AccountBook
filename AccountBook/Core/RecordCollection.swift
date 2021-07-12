@@ -40,7 +40,7 @@ struct RecordCollection: Collection {
     public func index(after i: Int) -> Int { i + 1 }
     
     
-    // MARK: -
+    // MARK: - Accessing Records
     
     public func getArray() -> [AccountRecord] {
         var arr: [AccountRecord] = []
@@ -50,7 +50,7 @@ struct RecordCollection: Collection {
         return arr
     }
     
-    public func filter<T>(by filter: T) -> Self
+    public func filtered<T>(by filter: T) -> Self
     where T: FilterProtocol,
           T.RecordType == Self.Element,
           T.IndexType == Self.Index
@@ -64,7 +64,7 @@ struct RecordCollection: Collection {
         return RecordCollection(self.ref_, map: idMap)
     }
     
-    public func sort<T>(by sorter: T) -> Self
+    public func sorted<T>(by sorter: T) -> Self
     where T: SorterProtocol,
           T.RecordType == Self.Element,
           T.IndexType == Self.Index

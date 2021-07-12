@@ -168,6 +168,7 @@
 		F8EEA4B6269AA2430067C5A4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F8EEA4E1269B62740067C5A4 /* Aggregator */,
 				F8EEA4BA269AA2950067C5A4 /* AccountDatabase.swift */,
 				F8EEA4BD269AA2FD0067C5A4 /* AccountRecord.swift */,
 				F8EEA4C0269AA6FC0067C5A4 /* AccountCategory.swift */,
@@ -196,6 +197,13 @@
 				F8EEA4DE269B3B7A0067C5A4 /* DateSorter.swift */,
 			);
 			path = Sorter;
+			sourceTree = "<group>";
+		};
+		F8EEA4E1269B62740067C5A4 /* Aggregator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Aggregator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -21,6 +21,12 @@ class AccountBookTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let db: AccountDatabase = .init()
+        let records = db.getRecords()
+            .filtered(by: DateFilter(start: Date(), end: Date()))
+            .sorted(by: DateSotrter(.ascending))
+            .getArray()
     }
 
     func testPerformanceExample() throws {
