@@ -15,6 +15,11 @@ class AccountDatabase {
     public init() {
         table_ = []
     }
+    /*
+    public init(_ url: URL) throws {
+        //let data = try Data(contentsOf: url)
+    }
+ */
     
     public var numberOfRecords: Int { self.table_.count }
     

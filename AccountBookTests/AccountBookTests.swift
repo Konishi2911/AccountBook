@@ -23,8 +23,22 @@ class AccountBookTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         let db: AccountDatabase = .init()
+        db.add(
+            AccountRecord(
+                date: Date(),
+                category: AccountCategory(
+                    type: .outlay,
+                    nameSequence: ["Food", "Groceries"]
+                )!,
+                name: "Test1",
+                pcs: 1,
+                amounts: 320,
+                remarks: "None"
+            )
+        )
+        
+        let recCollection = db.getRecords()
         let records = db.getRecords()
-            .filtered(by: DateFilter(start: Date(), end: Date()))
             .sorted(by: DateSotrter(.ascending))
             .getArray()
     }

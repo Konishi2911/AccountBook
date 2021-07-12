@@ -21,13 +21,20 @@ struct RecordCollection: Collection {
     
     // MARK: - Initializer
     
-    public init (_ ref: AccountDatabase, map: [Index] = []) {
+    public init (_ ref: AccountDatabase) {
+        self.ref_ = ref
+        self.indexMap_ = [Index](0..<ref.numberOfRecords)
+        
+        self.startIndex = 0
+        self.endIndex = ref.numberOfRecords
+    }
+    
+    public init (_ ref: AccountDatabase, map: [Index]) {
         self.ref_ = ref
         self.indexMap_ = map
         
         self.startIndex = map.min() ?? 0
-        self.endIndex = map.max() ?? ref.numberOfRecords - 1
-        
+        self.endIndex = map.max() ?? ref.numberOfRecords
     }
     
     
