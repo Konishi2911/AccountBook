@@ -8,13 +8,13 @@
 import Foundation
 
 struct CategoryFilter: FilterProtocol {
-    let cat_: AccountCategory
+    let category_: AccountCategory
     
     init (category: AccountCategory) {
-        self.cat_ = category
+        self.category_ = category
     }
     
     func filter(_ record: AccountRecord) -> AccountRecord? {
-        return self.cat_ == record.category ? record : nil
+        return record.category.isIncluded(in: self.category_) ? record : nil
     }
 }
