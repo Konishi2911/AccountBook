@@ -42,6 +42,28 @@ class AccountBookTests: XCTestCase {
             .sorted(by: DateSotrter(.ascending))
             .getArray()
     }
+    
+    func testBMTDecoding() throws {
+        let decoder: JSONDecoder = .init()
+        let url = URL(fileURLWithPath: "/Users/koheikonishi/Library/Containers/Utilities.BudgetManager/Data/Library/Application Support/transactionTable.bmt")
+        let data = try Data(contentsOf: url)
+        let records = try decoder.decode([BMTRecord].self, from: data)
+        print(records.count)
+    }
+    
+    func testInitDatabaseFromBMT() throws {
+        let url = URL(fileURLWithPath: "/Users/koheikonishi/Library/Containers/Utilities.BudgetManager/Data/Library/Application Support/transactionTable.bmt")
+        
+        var db = try AccountDatabase(fromBMT: url)
+        let tmpRecCollection = db.getRecords().filtered(
+            by: CategoryFilter(category: .init(type: .borrowing))
+        )
+        let records = tmpRecCollection.getArray()
+        
+        print("There are \(db.numberOfRecords) records in the DB totaly.")
+        print(tmpRecCollection.count)
+        print(records.count)
+    }
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

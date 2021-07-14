@@ -39,11 +39,19 @@ struct AccountCategoryProvider {
         } else { return nil }
     }
     
-    public func isValid(_ names: [String]) -> Bool {
+    public func isComplete(_ names: [String]) -> Bool {
         guard let currentName = names.first else {
             if self.isEmpty { return true }
             else { return false }
         }
+        guard let currentCategory = self.dict_[currentName] else { return false }
+        let nextNames = names.dropFirst()
+        
+        return currentCategory.isValid(Array(nextNames))
+    }
+    
+    public func isValid(_ names: [String]) -> Bool {
+        guard let currentName = names.first else { return true }
         guard let currentCategory = self.dict_[currentName] else { return false }
         let nextNames = names.dropFirst()
         

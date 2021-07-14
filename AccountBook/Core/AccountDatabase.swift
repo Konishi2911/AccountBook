@@ -15,6 +15,23 @@ class AccountDatabase {
     public init() {
         table_ = []
     }
+    
+    public init(fromBMT url: URL) throws {
+        if url.pathExtension != ".bmt" {
+            
+        }
+        
+        let decoder = JSONDecoder()
+        let data = try Data(contentsOf: url)
+        let bmtRecords = try decoder.decode([BMTRecord].self, from: data)
+        
+        self.table_ = .init()
+        for bmtRec in bmtRecords {
+            if let rec = bmtRec.toRecord() {
+                self.table_.append(rec)
+            }
+        }
+    }
     /*
     public init(_ url: URL) throws {
         //let data = try Data(contentsOf: url)
