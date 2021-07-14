@@ -52,7 +52,7 @@ struct RecordCollection: Collection {
     public func getArray() -> [AccountRecord] {
         var arr: [AccountRecord] = []
         for index in self.indexMap_ {
-            arr.append(ref_[self.indexMap_[index]])
+            arr.append(ref_[index])
         }
         return arr
     }
@@ -79,4 +79,8 @@ struct RecordCollection: Collection {
         let idMap = sorter.sort(self.indexMap_, ref: self.ref_)
         return RecordCollection(self.ref_, map: idMap)
     }
+    
+    // MARK: - Redefinition of Protocol
+    
+    var count: Int { self.indexMap_.count }
 }
