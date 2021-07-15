@@ -68,3 +68,41 @@ class AccountDatabase {
         RecordCollection(self)
     }
 }
+
+
+extension AccountDatabase {
+    static func mock() -> AccountDatabase {
+        let recArray = [
+            AccountRecord(
+                date: Date(),
+                category: AccountCategory(type: .income, nameSequence: ["Salary"])!,
+                name: "",
+                pcs: 1,
+                amounts: 5000,
+                remarks: "None"
+            ),
+            AccountRecord(
+                date: Date(),
+                category: AccountCategory(type: .outlay, nameSequence: ["Food", "Groceries"])!,
+                name: "Coockie",
+                pcs: 1,
+                amounts: 240,
+                remarks: "None"
+            ),
+            AccountRecord(
+                date: Date(),
+                category: AccountCategory(type: .borrowing, nameSequence: ["Scholarship"])!,
+                name: "",
+                pcs: 1,
+                amounts: 260400,
+                remarks: "None"
+            )
+        ]
+        
+        let db = AccountDatabase()
+        for rec in recArray {
+            db.add(rec)
+        }
+        return db
+    }
+}
