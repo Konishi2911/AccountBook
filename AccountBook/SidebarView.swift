@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct SidebarView: View {
+    var db: AccountDatabase
+    
     var body: some View {
         List {
-            NavigationLink(destination: OverviewView()){
+            NavigationLink(destination: OverviewView(db: self.db)){
                 Label("Overview", systemImage: "doc.text.magnifyingglass")
                     .font(.title3)
             }
@@ -42,6 +44,6 @@ struct SidebarItem: View {
 
 struct SidebarView_Previews: PreviewProvider {
     static var previews: some View {
-        SidebarView()
+        SidebarView(db: AccountDatabase.mock())
     }
 }

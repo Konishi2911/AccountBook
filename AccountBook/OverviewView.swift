@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct OverviewView: View {
+    var db: AccountDatabase
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Overview").bold().font(.largeTitle).padding()
-            HistoryView()
+            HistoryView(db: self.db)
         }
     }
 }
 
 struct OverviewView_Previews: PreviewProvider {
     static var previews: some View {
-        OverviewView()
+        OverviewView(db: AccountDatabase.mock())
     }
 }
