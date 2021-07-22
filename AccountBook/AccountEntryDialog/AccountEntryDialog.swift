@@ -48,6 +48,7 @@ struct AccountEntryDialog: View {
         }
     }
     
+    // MARK: Category View
     private var categoryView: some View {
         VStack {
             Picker(
@@ -73,6 +74,7 @@ struct AccountEntryDialog: View {
         }
     }
     
+    // MARK: EntryFieldView
     private var entryFieldView: some View {
         VStack {
             HStack {
