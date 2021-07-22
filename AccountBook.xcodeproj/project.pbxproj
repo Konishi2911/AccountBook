@@ -42,6 +42,7 @@
 		F8F0B60F269DF9CD0016E648 /* BMTReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F0B60D269DF5960016E648 /* BMTReader.swift */; };
 		F8F0B612269FB8000016E648 /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F0B611269FB8000016E648 /* HistoryItem.swift */; };
 		F8F17BBE26A0ED1100F92186 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F17BBD26A0ED1100F92186 /* BarChartView.swift */; };
+		F8F17BC126A8FC3000F92186 /* AccountEntryDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F17BC026A8FC3000F92186 /* AccountEntryDialog.swift */; };
 		F8FD2226269CA7C700CFA2F0 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FD2225269CA7C700CFA2F0 /* OverviewView.swift */; };
 		F8FD2227269CA7C700CFA2F0 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FD2225269CA7C700CFA2F0 /* OverviewView.swift */; };
 /* End PBXBuildFile section */
@@ -92,6 +93,7 @@
 		F8F0B60D269DF5960016E648 /* BMTReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMTReader.swift; sourceTree = "<group>"; };
 		F8F0B611269FB8000016E648 /* HistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
 		F8F17BBD26A0ED1100F92186 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
+		F8F17BC026A8FC3000F92186 /* AccountEntryDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEntryDialog.swift; sourceTree = "<group>"; };
 		F8FD2225269CA7C700CFA2F0 /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,6 +146,7 @@
 		F8EEA489269AA0CF0067C5A4 /* AccountBook */ = {
 			isa = PBXGroup;
 			children = (
+				F8F17BBF26A8FB8500F92186 /* AccountEntryDialog */,
 				F8EEA4B6269AA2430067C5A4 /* Core */,
 				F8EEA48A269AA0CF0067C5A4 /* AccountBookApp.swift */,
 				F8EEA48C269AA0CF0067C5A4 /* ContentView.swift */,
@@ -250,6 +253,14 @@
 				F8F17BBD26A0ED1100F92186 /* BarChartView.swift */,
 			);
 			path = BarChart;
+			sourceTree = "<group>";
+		};
+		F8F17BBF26A8FB8500F92186 /* AccountEntryDialog */ = {
+			isa = PBXGroup;
+			children = (
+				F8F17BC026A8FC3000F92186 /* AccountEntryDialog.swift */,
+			);
+			path = AccountEntryDialog;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -398,6 +409,7 @@
 				F8EEA4DF269B3B7A0067C5A4 /* DateSorter.swift in Sources */,
 				F8EEA4C4269ABF170067C5A4 /* AccountCategoryProvider.swift in Sources */,
 				F8EEA4CA269AF51D0067C5A4 /* RecordCollection.swift in Sources */,
+				F8F17BC126A8FC3000F92186 /* AccountEntryDialog.swift in Sources */,
 				F8EEA48B269AA0CF0067C5A4 /* AccountBookApp.swift in Sources */,
 				F8EEA4D3269B2A470067C5A4 /* SorterProtocol.swift in Sources */,
 				F8F0B612269FB8000016E648 /* HistoryItem.swift in Sources */,
