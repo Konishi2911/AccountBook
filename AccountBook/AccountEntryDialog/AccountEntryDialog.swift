@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct AccountEntryDialog: View {
-    @State private var name: String = ""
-    @State private var amount: Int = 0
-    @State private var pcs: Int = 1
+    @StateObject private var model: AccountItemModel = .default
+    
     @State private var bool: Bool = false
     private let currencyFormatter = NumberFormatter()
     
-    init() {
+    init() {        
         self.currencyFormatter.numberStyle = .currency
         self.currencyFormatter.currencyGroupingSeparator = ","
         self.currencyFormatter.isLenient = true
@@ -26,12 +25,14 @@ struct AccountEntryDialog: View {
                 .font(.title)
                 .bold()
             HStack {
-                Picker("", selection: .constant(1)) {
-                    Text("Income").tag(1)
-                    Text("Outlay").tag(2)
+                Picker("", selection: $model.type) {
+                    Text("Income").tag(AccountItemModel.Direction.income)
+                    Text("Borrowing").tag(AccountItemModel.Direction.borrowing)
+                    Text("Outlay").tag(AccountItemModel.Direction.outlay)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .frame(maxWidth: 150)
+                .scaledToFit()
+                .frame(alignment: .leading)
                 Spacer()
                 DatePicker(
                     "",
@@ -52,25 +53,30 @@ struct AccountEntryDialog: View {
     private var categoryView: some View {
         VStack {
             Picker(
-                selection: .constant(1),
+                selection: $model.categoryName,
                 label: Text("Category")
                     .frame(width: 100, alignment: .trailing)
                     .foregroundColor(.gray)
             ) {
-                Text("Income").tag(1)
-                Text("Outlay").tag(2)
+                ForEach(self.model.categoryList, id: \.self) { cat in
+                    Text(cat).tag(cat)
+                }
             }
             .pickerStyle(MenuPickerStyle())
-            Picker(
-                selection: .constant(1),
-                label: Text("Sub Category")
-                    .frame(width: 100, alignment: .trailing)
-                    .foregroundColor(.gray)
-            ) {
-                Text("Income").tag(1)
-                Text("Outlay").tag(2)
+            
+            if model.hasSubCategory {
+                Picker(
+                    selection: $model.subCategoryName,
+                    label: Text("Sub Category")
+                        .frame(width: 100, alignment: .trailing)
+                        .foregroundColor(.gray)
+                ) {
+                    ForEach(self.model.subCategoryList!, id: \.self) { cat in
+                        Text(cat).tag(cat)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
             }
-            .pickerStyle(MenuPickerStyle())
         }
     }
     
@@ -81,7 +87,7 @@ struct AccountEntryDialog: View {
                 Text("Name")
                     .frame(width: 100, alignment: .trailing)
                     .foregroundColor(.gray)
-                TextField("Enter the name", text: $name)
+                TextField("Enter the name", text: $model.name)
                     .textFieldStyle(PlainTextFieldStyle())
                 Button(action: { self.bool = !self.bool }) {
                     Image(systemName: "8.square")
@@ -98,14 +104,14 @@ struct AccountEntryDialog: View {
                 Text("Amount")
                     .frame(width: 100, alignment: .trailing)
                     .foregroundColor(.gray)
-                TextField("", value: $amount, formatter: self.currencyFormatter)
+                TextField("", value: $model.amount, formatter: self.currencyFormatter)
                     .textFieldStyle(PlainTextFieldStyle())
             }
-            Stepper(value: $pcs, in: 1...100) {
+            Stepper(value: $model.pcs, in: 1...100) {
                 Text("pcs")
                     .frame(width: 100, alignment: .trailing)
                     .foregroundColor(.gray)
-                TextField("Pcs", value: $pcs, formatter: NumberFormatter())
+                TextField("Pcs", value: $model.pcs, formatter: NumberFormatter())
                     .textFieldStyle(PlainTextFieldStyle())
             }
         }
