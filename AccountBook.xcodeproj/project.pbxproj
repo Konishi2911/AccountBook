@@ -161,6 +161,7 @@
 		F8EEA489269AA0CF0067C5A4 /* AccountBook */ = {
 			isa = PBXGroup;
 			children = (
+				F8F17BBC26A0EBB600F92186 /* BarChart */,
 				F8F17BBF26A8FB8500F92186 /* AccountEntryDialog */,
 				F8EEA4B6269AA2430067C5A4 /* Core */,
 				F8EEA48A269AA0CF0067C5A4 /* AccountBookApp.swift */,
@@ -205,7 +206,6 @@
 		F8EEA4B6269AA2430067C5A4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				F8F17BBC26A0EBB600F92186 /* BarChart */,
 				F8EEA4E1269B62740067C5A4 /* Aggregator */,
 				F8EEA4BA269AA2950067C5A4 /* AccountDatabase.swift */,
 				F8F0B60C269DF5250016E648 /* Compatible */,
