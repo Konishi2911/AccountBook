@@ -17,37 +17,24 @@ struct AccountCategoryManager {
         self.type_ = type
         self.nameSeq_ = []
         
-        switch type {
-        case .borrowing:
-            self.provider = .borrowing
-        case .income:
-            self.provider = .income
-        case .outlay:
-            self.provider = .outlay
-        }
+        self.provider = self.type_.provider()
     }
     
     init?(type: AccountCategory.AccountType, nameSequence: [String]) {
         self.type_ = type
         self.nameSeq_ = nameSequence
         
-        switch type {
-        case .borrowing:
-            self.provider = .borrowing
-        case .income:
-            self.provider = .income
-        case .outlay:
-            self.provider = .outlay
-        }
-        
-        if self.provider.isValid(self.nameSeq_) { return nil }
+        guard self.type_.provider().isValid(nameSequence) else { return nil }
+        self.provider = self.type_.provider().getSubCategory(
+            nameSequence: nameSequence
+        )!
     }
     
-    func getSubCategoryList() -> [String] {
-        return self.provider.getSubCategory(nameSequence: self.nameSeq_).categoryNames
+    func getChildCategoryList() -> [String] {
+        return self.provider.categoryNames
     }
     
-    func hasSubCategory() -> Bool {
+    func hasChildCategory() -> Bool {
         return !self.provider.isEmpty
     }
 }
