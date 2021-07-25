@@ -10,9 +10,6 @@ import Foundation
 class AccountItemModel: ObservableObject {
     typealias Direction = AccountCategory.AccountType
     
-    private var category_: String?
-    private var subCategory_: String?
-    
     @Published var type: Direction {
         didSet { if self.type != oldValue { self.updateCategory() } }
     }
