@@ -46,7 +46,20 @@ struct AccountEntryDialog: View {
             self.categoryView
             Divider()
             self.entryFieldView
+            HStack {
+                Spacer()
+                Button("Cancel") {
+                    
+                }
+                .keyboardShortcut(.cancelAction)
+                Button("Accept") {
+                    
+                }
+                .keyboardShortcut(.defaultAction)
+            }
         }
+        .padding(.all, 10.0)
+        .frame(width: 400)
     }
     
     // MARK: Category View
@@ -62,7 +75,7 @@ struct AccountEntryDialog: View {
                     Text(cat).tag(cat)
                 }
             }
-            .pickerStyle(MenuPickerStyle())
+            .pickerStyle(DefaultPickerStyle())
             
             if model.hasSubCategory {
                 Picker(
