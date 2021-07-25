@@ -23,7 +23,7 @@ struct OverviewView: View {
                     Image(systemName: "plus")
                 }
                 .popover(isPresented: self.$showingDialog) {
-                    AccountEntryDialog()
+                    AccountEntryDialog(isShowing: self.$showingDialog)
                 }
             }
         }
