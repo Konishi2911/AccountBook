@@ -74,6 +74,7 @@ private struct YLabelGridItemView: View {
             HStack {
                 Text(yValue.description)
                     .foregroundColor(.gray)
+                    .font(.callout)
                 Path { path in
                     path.move(to: CGPoint(x: 0, y: geometry.size.height * 0.5))
                     path.addLine(
@@ -164,6 +165,13 @@ struct BarChartSource {
         }
         return ceil(tmpValue) * pow(10, CGFloat(Double(times + 1)))
     }
+    
+    static var mock: Self {
+        BarChartSource(
+            labels: ["TEST1", "TEST4", "TEST"],
+            values: [10, 52, 25]
+        )
+    }
 }
 
 private struct BarItemModel: Identifiable {
@@ -175,10 +183,6 @@ private struct BarItemModel: Identifiable {
 
 struct BarChartView_Previews: PreviewProvider {
     static var previews: some View {
-        let source = BarChartSource(
-            labels: ["TEST1", "TEST4", "TEST"],
-            values: [10, 52, 25]
-        )
-        BarChartView(source: source)
+        BarChartView(source: BarChartSource.mock)
     }
 }

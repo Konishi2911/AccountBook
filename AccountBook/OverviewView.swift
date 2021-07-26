@@ -14,7 +14,11 @@ struct OverviewView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Overview").bold().font(.largeTitle).padding()
+            Text("Overview")
+                .bold()
+                .font(.largeTitle)
+                .padding([.top, .leading, .trailing])
+            BarChartView(source: .mock).padding([.horizontal])
             HistoryView(db: self.db)
         }
         .toolbar {
@@ -27,6 +31,7 @@ struct OverviewView: View {
                 }
             }
         }
+        .background(Color.init(.controlBackgroundColor))
     }
 }
 
