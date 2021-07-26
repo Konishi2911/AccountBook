@@ -64,6 +64,28 @@ class AccountBookTests: XCTestCase {
         print(tmpRecCollection.count)
         print(records.count)
     }
+    
+    func testAccountItemModel() throws {
+        let model: AccountItemModel = .default
+        
+        let catList = model.categoryList
+        let subCatList = model.subCategoryList
+        
+        print(model.hasSubCategory)
+        print(model.categoryName)
+        print(model.subCategoryName)
+        
+        model.type = .outlay
+        model.categoryName = "Utilities"
+        print(model.hasSubCategory)
+        print(model.categoryName)
+        print(model.subCategoryName)
+        
+        model.type = .outlay
+        print(model.hasSubCategory)
+        print(model.categoryName)
+        print(model.subCategoryName)
+    }
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

@@ -8,11 +8,7 @@
 import Foundation
 
 struct AccountCategory: Equatable {
-    public enum AccountType: String {
-        case income
-        case borrowing
-        case outlay
-    }
+    typealias AccountType = AccountCategoryProvider.AccountType
     
     public let accountType: AccountType
     public let categoryNameSequence: [String]

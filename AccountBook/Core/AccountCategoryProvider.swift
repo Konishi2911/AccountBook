@@ -9,6 +9,23 @@ import Foundation
 import OrderedCollections
 
 struct AccountCategoryProvider {
+    public enum AccountType: String {
+        case income
+        case borrowing
+        case outlay
+        
+        func provider() -> AccountCategoryProvider {
+            switch self {
+            case .borrowing:
+                return AccountCategoryProvider.borrowing
+            case .income:
+                return AccountCategoryProvider.income
+            case .outlay:
+                return AccountCategoryProvider.outlay
+            }
+        }
+    }
+    
     private let dict_: OrderedDictionary<String, AccountCategoryProvider>
     
     public var isEmpty: Bool {
@@ -18,10 +35,10 @@ struct AccountCategoryProvider {
     public var categoryNames: [String] { [String](self.dict_.keys) }
     
     
-    public init(_ dict: OrderedDictionary<String, AccountCategoryProvider>) {
+    private init(_ dict: OrderedDictionary<String, AccountCategoryProvider>) {
         self.dict_ = dict
     }
-    public init(_ names: [String]) {
+    private init(_ names: [String]) {
         self.init(
             OrderedDictionary(
                 uniqueKeysWithValues: zip(
@@ -34,7 +51,7 @@ struct AccountCategoryProvider {
     
     public func subDirectory(_ name: String) -> AccountCategoryProvider? {
         if let sub = self.dict_[name] {
-            guard !sub.isEmpty else { return nil }
+            //guard !sub.isEmpty else { return nil }
             return sub
         } else { return nil }
     }
@@ -58,10 +75,11 @@ struct AccountCategoryProvider {
         return currentCategory.isValid(Array(nextNames))
     }
     
-    public func getSubCategory(nameSequence: [String]) -> Self {
+    public func getSubCategory(nameSequence: [String]) -> Self? {
         if nameSequence.count == 0 { return self }
         else {
-            return getSubCategory(nameSequence: Array(nameSequence.dropFirst()))
+            return subDirectory(nameSequence.first!)?
+                .getSubCategory(nameSequence: Array(nameSequence.dropFirst()))
         }
     }
     

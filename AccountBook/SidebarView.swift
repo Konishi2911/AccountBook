@@ -18,7 +18,7 @@ struct SidebarView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: ToolbarItemPlacement.automatic) {
+            ToolbarItem(placement: .navigation) {
                 Button(action: toggleSidebar) {
                     Image(systemName: "sidebar.left")
                 }

@@ -16,6 +16,10 @@ struct ContentView: View {
             OverviewView(db: db)
         }
     }
+    
+    private func toggleSidebar() {
+        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
