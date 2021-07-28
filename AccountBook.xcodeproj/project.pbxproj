@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		F82AE1FD269C8B40007B51D4 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AE1FC269C8B40007B51D4 /* SidebarView.swift */; };
+		F86C464C26AF01F300AB8CFD /* MonthlyAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */; };
+		F86C464D26AF01F300AB8CFD /* MonthlyAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */; };
+		F86C464F26AF020800AB8CFD /* AggregatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */; };
+		F86C465026AF020800AB8CFD /* AggregatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */; };
 		F8EEA48B269AA0CF0067C5A4 /* AccountBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEA48A269AA0CF0067C5A4 /* AccountBookApp.swift */; };
 		F8EEA48D269AA0CF0067C5A4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEA48C269AA0CF0067C5A4 /* ContentView.swift */; };
 		F8EEA48F269AA0D10067C5A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8EEA48E269AA0D10067C5A4 /* Assets.xcassets */; };
@@ -79,6 +83,8 @@
 
 /* Begin PBXFileReference section */
 		F82AE1FC269C8B40007B51D4 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyAggregator.swift; sourceTree = "<group>"; };
+		F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatorProtocol.swift; sourceTree = "<group>"; };
 		F8EEA487269AA0CF0067C5A4 /* AccountBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccountBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8EEA48A269AA0CF0067C5A4 /* AccountBookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBookApp.swift; sourceTree = "<group>"; };
 		F8EEA48C269AA0CF0067C5A4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -242,6 +248,8 @@
 		F8EEA4E1269B62740067C5A4 /* Aggregator */ = {
 			isa = PBXGroup;
 			children = (
+				F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */,
+				F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */,
 			);
 			path = Aggregator;
 			sourceTree = "<group>";
@@ -415,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F86C464C26AF01F300AB8CFD /* MonthlyAggregator.swift in Sources */,
 				F8EEA4BB269AA2950067C5A4 /* AccountDatabase.swift in Sources */,
 				F8EEA4D9269B30620067C5A4 /* DateFilter.swift in Sources */,
 				F8EEA4DC269B32F10067C5A4 /* CategoryFilter.swift in Sources */,
@@ -427,6 +436,7 @@
 				F8EEA4DF269B3B7A0067C5A4 /* DateSorter.swift in Sources */,
 				F8EEA4C4269ABF170067C5A4 /* AccountCategoryProvider.swift in Sources */,
 				F8EEA4CA269AF51D0067C5A4 /* RecordCollection.swift in Sources */,
+				F86C464F26AF020800AB8CFD /* AggregatorProtocol.swift in Sources */,
 				F8F17BC126A8FC3000F92186 /* AccountEntryDialog.swift in Sources */,
 				F8EEA48B269AA0CF0067C5A4 /* AccountBookApp.swift in Sources */,
 				F8EEA4D3269B2A470067C5A4 /* SorterProtocol.swift in Sources */,
@@ -443,6 +453,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F86C464D26AF01F300AB8CFD /* MonthlyAggregator.swift in Sources */,
 				F8EEA4D4269B2A470067C5A4 /* SorterProtocol.swift in Sources */,
 				F8EEA4DD269B32F10067C5A4 /* CategoryFilter.swift in Sources */,
 				F8EEA4BC269AA2950067C5A4 /* AccountDatabase.swift in Sources */,
@@ -458,6 +469,7 @@
 				F8EEA4E0269B3B7A0067C5A4 /* DateSorter.swift in Sources */,
 				F8EEA4C2269AA6FC0067C5A4 /* AccountCategory.swift in Sources */,
 				F8EEA4CE269B14DD0067C5A4 /* FilterProtocol.swift in Sources */,
+				F86C465026AF020800AB8CFD /* AggregatorProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

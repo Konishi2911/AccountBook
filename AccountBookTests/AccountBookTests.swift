@@ -86,6 +86,20 @@ class AccountBookTests: XCTestCase {
         print(model.categoryName)
         print(model.subCategoryName)
     }
+    
+    func testMonthlyAggregator() throws {
+        let cal = Calendar.current
+        let duration = DateInterval(
+            start: cal.date(byAdding: .month, value: -2, to: Date())!,
+            end: Date()
+        )
+        
+        let mockDB = AccountDatabase.mock()
+        let aggregator = MonthlyAggregator(ref: mockDB, duration: duration)
+        
+        let dict = aggregator.aggregate(strategy: .sum) { Double($0.amounts) }
+        print(dict.count)
+    }
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

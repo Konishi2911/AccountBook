@@ -72,6 +72,8 @@ class AccountDatabase {
 
 extension AccountDatabase {
     static func mock() -> AccountDatabase {
+        let cal = Calendar.current
+        
         let recArray = [
             AccountRecord(
                 date: Date(),
@@ -94,7 +96,31 @@ extension AccountDatabase {
                 category: AccountCategory(type: .borrowing, nameSequence: ["Scholarship"])!,
                 name: "",
                 pcs: 1,
-                amounts: 260400,
+                amounts: 5015,
+                remarks: "None"
+            ),
+            AccountRecord(
+                date: cal.date(byAdding: .month, value: -1, to: Date())!,
+                category: AccountCategory(type: .borrowing, nameSequence: ["Scholarship"])!,
+                name: "",
+                pcs: 1,
+                amounts: 9123,
+                remarks: "None"
+            ),
+            AccountRecord(
+                date: cal.date(byAdding: .month, value: -1, to: Date())!,
+                category: AccountCategory(type: .borrowing, nameSequence: ["Scholarship"])!,
+                name: "",
+                pcs: 1,
+                amounts: 300,
+                remarks: "None"
+            ),
+            AccountRecord(
+                date: cal.date(byAdding: .month, value: -2, to: Date())!,
+                category: AccountCategory(type: .borrowing, nameSequence: ["Scholarship"])!,
+                name: "",
+                pcs: 1,
+                amounts: 2123,
                 remarks: "None"
             )
         ]
