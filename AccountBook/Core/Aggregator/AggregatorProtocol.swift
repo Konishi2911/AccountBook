@@ -13,6 +13,7 @@ protocol AggregatorProtocol {
     
     func aggregate(
         strategy: AggregateStrategy<ValueType>,
+        type: AccountCategoryProvider.AccountType,
         content: (AccountRecord) -> ValueType
     ) -> [LabelType: ValueType]
 }

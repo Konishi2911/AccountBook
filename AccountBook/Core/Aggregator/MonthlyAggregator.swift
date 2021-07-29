@@ -28,11 +28,13 @@ struct MonthlyAggregator: AggregatorProtocol {
         
     func aggregate(
         strategy: AggregateStrategy<ValueType>,
+        type: AccountCategoryProvider.AccountType,
         content: (AccountRecord) -> ValueType
     ) -> [LabelType: ValueType] {
         let dateFilter = DateFilter(start: self.duration_.start, end: duration_.end)
         let records = self.ref_.getRecords()
             .filtered(by: dateFilter)
+            .filtered(by: CategoryFilter(category: AccountCategory(type: type)))
             .sorted(by: DateSotrter(.ascending))
         let labels = self.createLabels()
         
@@ -44,7 +46,7 @@ struct MonthlyAggregator: AggregatorProtocol {
             var aggValues: [Double] = []
             for (i, rec) in recs.enumerated() {
                 guard (tgtInterval.contains(rec.date)) else {
-                    recCnt = i
+                    recCnt += i
                     break
                 }
                 aggValues.append(content(rec))
@@ -57,7 +59,7 @@ struct MonthlyAggregator: AggregatorProtocol {
     
     private func createLabels() -> [DateInterval] {
         var labels: [DateInterval] = []
-        var monthComps = self.calendar_.dateComponents(
+        let monthComps = self.calendar_.dateComponents(
             [.month, .year], from: self.duration_.start
         )
         var month = self.calendar_.date(from: monthComps)!

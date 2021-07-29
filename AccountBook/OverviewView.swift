@@ -18,7 +18,7 @@ struct OverviewView: View {
                 .bold()
                 .font(.largeTitle)
                 .padding([.top, .leading, .trailing])
-            BarChartView(source: .mock).padding([.horizontal])
+            BarChartView(source: self.barChartSource()).padding([.horizontal])
             HistoryView(db: self.db)
         }
         .toolbar {
@@ -32,6 +32,32 @@ struct OverviewView: View {
             }
         }
         .background(Color.init(.controlBackgroundColor))
+    }
+    
+    private func barChartSource() -> BarChartSource {
+        let cal = Calendar.current
+        let start = cal.date(from: cal.dateComponents([.year], from: Date()))!
+        let end = cal.date(byAdding: .year, value: 1, to: start)!
+        
+        let aggregator = MonthlyAggregator(
+            ref: self.db,
+            duration: .init( start: start, end: end )
+        )
+        
+        let result = aggregator.aggregate(
+            strategy: .sum, type: .borrowing, content: { Double($0.amounts) }
+        )
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = DateFormatter.dateFormat(
+            fromTemplate: "MM", options: 0, locale: nil
+        )
+        
+        let src = result.sorted { $0.key < $1.key}
+        return .init(
+            labels: src.compactMap {$0.key}.map{ dateFormatter.string(from: $0.start) },
+            values: [Double](src.compactMap {$0.value})
+        )
     }
 }
 
