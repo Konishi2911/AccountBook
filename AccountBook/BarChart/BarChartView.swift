@@ -9,8 +9,13 @@ import SwiftUI
 
 struct BarChartView: View {
     let source: BarChartSource
-    let yValueFormatter: Formatter? = nil
-        
+    let yValueFormatter: Formatter?
+    
+    init(source: BarChartSource, formatter: Formatter? = nil) {
+        self.source = source
+        self.yValueFormatter = formatter
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -225,7 +230,13 @@ private struct BarItemModel: Identifiable {
 }
 
 struct BarChartView_Previews: PreviewProvider {
+    static func currencyFormatter() -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        return formatter
+    }
     static var previews: some View {
-        BarChartView(source: BarChartSource.mock)
+        let formatter = currencyFormatter()
+        BarChartView(source: BarChartSource.mock, formatter: formatter)
     }
 }
