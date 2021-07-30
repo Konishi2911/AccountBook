@@ -106,7 +106,7 @@ private struct YLabelView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
                     .offset(x: 0, y: self.yOffset(order: order, height: geom.size.height))
         }
-        .frame(maxWidth: 40)
+        .frame(maxWidth: 60)
     }
     
     private func yOffset(order: Int, height: CGFloat) -> CGFloat {

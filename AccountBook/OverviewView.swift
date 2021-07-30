@@ -18,7 +18,11 @@ struct OverviewView: View {
                 .bold()
                 .font(.largeTitle)
                 .padding([.top, .leading, .trailing])
-            BarChartView(source: self.barChartSource()).padding([.horizontal])
+            BarChartView(
+                source: self.barChartSource(),
+                formatter: self.currencyFormatter()
+            )
+                .padding([.horizontal])
             HistoryView(db: self.db)
         }
         .toolbar {
@@ -34,6 +38,11 @@ struct OverviewView: View {
         .background(Color.init(.controlBackgroundColor))
     }
     
+    private func currencyFormatter() -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currencyAccounting
+        return formatter
+    }
     private func barChartSource() -> BarChartSource {
         let cal = Calendar.current
         let start = cal.date(from: cal.dateComponents([.year], from: Date()))!
