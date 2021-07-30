@@ -9,14 +9,21 @@ import SwiftUI
 
 struct BarChartView: View {
     let source: BarChartSource
+    let yValueFormatter: Formatter? = nil
         
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 Spacer().frame(height:10)
-                ZStack {
-                    YLabelGridView(source: source)
-                    BarCollection(source: source)
+                HStack {
+                    YLabelView(
+                        source: source,
+                        formatter: yValueFormatter ?? NumberFormatter()
+                    )
+                    ZStack {
+                        YLabelGridView(source: source)
+                        BarCollection(source: source)
+                    }
                 }
             }
         }
@@ -26,6 +33,7 @@ struct BarChartView: View {
 // MARK: BarCollection
 private struct BarCollection: View {
     let source: BarChartSource
+    
     let yLabelWidth: CGFloat = 30
     
     var body: some View {
@@ -33,7 +41,9 @@ private struct BarCollection: View {
             HStack {
                 Spacer().frame(width: self.yLabelWidth)
                 ForEach(self.source.items) {
-                    BarItemView(model: $0, height: geometry.size.height)
+                    BarItemView(
+                        model: $0, height: geometry.size.height
+                    )
                         .frame(maxWidth: .infinity)
                 }
             }
@@ -46,24 +56,62 @@ private struct YLabelGridView: View {
     let source: BarChartSource
     
     var body: some View {
+        let ntics = self.source.yLabels.count
         GeometryReader { geometry in
             VStack {
-                ForEach(0 ..< self.source.yLabels.count, id: \.self) {
-                    YLabelGridItemView(
+                ForEach(0 ..< ntics, id: \.self) {
+                    GridItemView(
                         yValue: Double(self.source.yLabels[$0]),
                         frameSize: geometry.size,
                         order: $0,
-                        nTics: self.source.yLabels.count
+                        nTics: ntics
                     )
+                    .frame(maxWidth: .infinity)
                 }
                 Spacer().frame(height: 30)
             }
         }
     }
+    
+    private func yOffset(order: Int, height: CGFloat) -> CGFloat {
+        let t = 1 - CGFloat(order) / CGFloat(self.source.yLabels.count - 1)
+        return 0.5 * height * (0.5 - t) * 2
+    }
 }
 
-// MARK: YLabelGridItemView
-private struct YLabelGridItemView: View {
+// MARK: YLabelView
+private struct YLabelView: View {
+    let source: BarChartSource
+    let formatter: Formatter
+    
+    var body: some View {
+        VStack (alignment: .trailing, spacing: 0){
+            ForEach(0 ..< self.source.yLabels.count, id: \.self) {
+                self.makeYLabel(yValue: self.source.yLabels[$0], order: $0)
+            }
+            Spacer().frame(height: 30)
+        }
+    }
+    
+    func makeYLabel(yValue: CGFloat, order: Int) -> some View {
+        GeometryReader{ geom in
+                Text(self.formatter.string(for: yValue)!)
+                    .foregroundColor(.gray)
+                    .font(.callout)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+                    .offset(x: 0, y: self.yOffset(order: order, height: geom.size.height))
+        }
+        .frame(maxWidth: 40)
+    }
+    
+    private func yOffset(order: Int, height: CGFloat) -> CGFloat {
+        let t = 1 - CGFloat(order) / CGFloat(self.source.yLabels.count - 1)
+        return 0.5 * height * (0.5 - t) * 2
+    }
+}
+
+// MARK: GridItemView
+private struct GridItemView: View {
     let yValue: Double
     let frameSize: CGSize
     let order: Int
@@ -71,21 +119,15 @@ private struct YLabelGridItemView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            HStack {
-                Text(yValue.description)
-                    .foregroundColor(.gray)
-                    .font(.callout)
-                Path { path in
-                    path.move(to: CGPoint(x: 0, y: geometry.size.height * 0.5))
-                    path.addLine(
-                        to: CGPoint(x: self.frameSize.width, y: geometry.size.height * 0.5)
-                    )
-                }
-                .stroke(style: StrokeStyle(lineWidth: 0.5, dash: [2, 2]))
-                .foregroundColor(.gray)
+            Path { path in
+                path.move(to: CGPoint(x: 0, y: geometry.size.height * 0.5))
+                path.addLine(
+                    to: CGPoint(x: self.frameSize.width, y: geometry.size.height * 0.5)
+                )
             }
-            .frame(alignment: .bottom)
             .offset(x: 0, y: self.yOffset(height: geometry.size.height))
+            .stroke(style: StrokeStyle(lineWidth: 0.5, dash: [2, 2]))
+            .foregroundColor(.gray)
         }
     }
     
@@ -99,10 +141,11 @@ private struct YLabelGridItemView: View {
 private struct BarItemView: View {
     let model: BarItemModel
     let height: CGFloat
+    
     let labelHeight: CGFloat = 30
     
     let minBarWidth: CGFloat = 5
-    let maxBarWidth: CGFloat = 50
+    let maxBarWidth: CGFloat = 30
     
     var body: some View {
         let barHeight = self.height - labelHeight
