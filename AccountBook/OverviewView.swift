@@ -59,7 +59,7 @@ struct OverviewView: View {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(
-            fromTemplate: "MM", options: 0, locale: nil
+            fromTemplate: "MMM", options: 0, locale: nil
         )
         
         let src = result.sorted { $0.key < $1.key}
