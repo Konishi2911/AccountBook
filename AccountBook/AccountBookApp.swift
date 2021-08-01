@@ -11,7 +11,16 @@ import SwiftUI
 struct AccountBookApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(db: AccountDatabase.mock())
+            let db = try! loadOldDB()
+            ContentView(db: db)
         }
+    }
+    
+    func loadOldDB() throws -> AccountDatabase {
+        let url = URL(fileURLWithPath: "/Users/koheikonishi/Downloads/transactionTable_bak.bmt")
+        let data = try Data(contentsOf: url)
+        
+        
+        return try AccountDatabase(fromBMT: url)
     }
 }
