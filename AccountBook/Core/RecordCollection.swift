@@ -33,8 +33,8 @@ struct RecordCollection: Collection {
         self.ref_ = ref
         self.indexMap_ = map
         
-        self.startIndex = map.min() ?? 0
-        self.endIndex = map.max() ?? ref.numberOfRecords
+        self.startIndex = 0
+        self.endIndex = map.count
     }
     
     
