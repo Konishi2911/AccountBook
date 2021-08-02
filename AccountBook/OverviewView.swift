@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct OverviewView: View {
+    typealias AccountType = AccountCategoryProvider.AccountType
+    
+    @State private var accountType: AccountType = .income
     @State private var showingDialog = false
     
     var db: AccountDatabase
@@ -18,12 +21,7 @@ struct OverviewView: View {
                 .bold()
                 .font(.largeTitle)
                 .padding([.top, .leading, .trailing])
-            BarChartView(
-                source: self.barChartSource(),
-                formatter: self.currencyFormatter()
-            )
-                .padding([.horizontal])
-            HistoryView(db: self.db)
+            self.content
         }
         .toolbar {
             ToolbarItem(placement: .automatic) {
@@ -38,12 +36,37 @@ struct OverviewView: View {
         .background(Color.init(.controlBackgroundColor))
     }
     
+    var content: some View {
+        GeometryReader { geom in
+            VStack(alignment: .leading) {
+                HStack {
+                    Spacer().frame(maxWidth: .infinity)
+                    Picker(selection: self.$accountType, label: Text("")) {
+                        Text("income").tag(AccountType.income)
+                        Text("borrowing").tag(AccountType.borrowing)
+                        Text("outlay").tag(AccountType.outlay)
+                    }
+                    .padding(.trailing, 10.0)
+                    .pickerStyle(MenuPickerStyle())
+                    .frame(width: 100)
+                }
+                BarChartView(
+                    source: self.barChartSource(type: self.accountType),
+                    formatter: self.currencyFormatter()
+                )
+                .padding([.horizontal])
+                .frame(height: geom.size.height * 0.3)
+                HistoryView(db: self.db)
+            }
+        }
+    }
+    
     private func currencyFormatter() -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currencyAccounting
         return formatter
     }
-    private func barChartSource() -> BarChartSource {
+    private func barChartSource(type: AccountType) -> BarChartSource {
         let cal = Calendar.current
         let start = cal.date(from: cal.dateComponents([.year], from: Date()))!
         let end = cal.date(byAdding: .year, value: 1, to: start)!
@@ -54,7 +77,7 @@ struct OverviewView: View {
         )
         
         let result = aggregator.aggregate(
-            strategy: .sum, type: .borrowing, content: { Double($0.amounts) }
+            strategy: .sum, type: type, content: { Double($0.amounts) }
         )
         
         let dateFormatter = DateFormatter()
