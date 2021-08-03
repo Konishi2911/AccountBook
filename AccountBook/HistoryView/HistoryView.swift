@@ -13,14 +13,17 @@ struct HistoryView: View {
     var body: some View {
         let items = self.aggregateItems()
         
-        List(0 ..< items.count) { i in
-            HistoryItemView(item: items[i])
-        }
+            List(0 ..< items.count) { i in
+                HistoryItemView(item: items[i])
+            }
     }
     
     func aggregateItems() -> [HistoryItem] {
         var items: [HistoryItem] = []
-        for rec in self.db.getRecords().getArray() {
+        for rec in self.db
+            .getRecords()
+            .sorted(by: DateSotrter(.ascending))
+            .getArray() {
             items.append(.init(from: rec))
         }
         return items
@@ -54,7 +57,7 @@ struct HistoryItemView: View {
                     Text(self.item.name).font(.caption)
                 }
                 Text(
-                    currencyFormatter.string(
+                    self.currencyFormatter.string(
                         from: NSNumber(value: self.item.amounts)
                     )!
                 )
