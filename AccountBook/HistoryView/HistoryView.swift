@@ -33,12 +33,18 @@ struct HistoryView: View {
 struct HistoryItemView: View {
     let item: HistoryItem
     private let currencyFormatter: NumberFormatter
+    private let dateFormatter: DateFormatter
     
     init(item: HistoryItem) {
         self.item = item
         
         self.currencyFormatter = NumberFormatter()
         currencyFormatter.numberStyle = .currency
+        
+        self.dateFormatter = DateFormatter()
+        self.dateFormatter.dateFormat = DateFormatter.dateFormat(
+            fromTemplate: "MMMdd", options: 0, locale: nil
+        )
     }
     
     var body: some View {
@@ -53,8 +59,14 @@ struct HistoryItemView: View {
             }
             VStack(alignment: .leading) {
                 HStack {
-                    Text(self.item.category.categoryNameSequence.first!).font(.caption)
-                    Text(self.item.name).font(.caption)
+                    Text(self.dateFormatter.string(from: self.item.date)).font(.caption)
+                    Text(self.item.category.categoryNameSequence.first!)
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .fontWeight(.bold)
+                    Text(self.item.name)
+                        .font(.caption)
+                        .foregroundColor(.gray)
                 }
                 Text(
                     self.currencyFormatter.string(
