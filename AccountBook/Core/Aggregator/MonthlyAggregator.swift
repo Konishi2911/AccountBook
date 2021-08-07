@@ -12,18 +12,50 @@ struct MonthlyAggregator: AggregatorProtocol {
     typealias LabelType = DateInterval
     typealias ValueType = Double
     
-    private let ref_: AccountDatabase
-    private let calendar_: Calendar
+    private let ref_: RecordCollection
     private let duration_: DateInterval
+    private let calendar_: Calendar
     
-    
+    @available(*, deprecated)
     init(
         ref: AccountDatabase,
         duration: DateInterval
     ) {
-        self.ref_ = ref
-        self.calendar_ = Calendar.current
+        self.ref_ = ref.getRecords()
+            .filtered(
+                by: DateFilter(start: duration.start, end: duration.end)
+            )
+            .sorted(by: DateSotrter(.ascending))
         self.duration_ = duration
+        self.calendar_ = Calendar.current
+    }
+    
+    init (ref: RecordCollection, duration: DateInterval) {
+        self.ref_ = ref
+        self.duration_ = duration
+        self.calendar_ = Calendar.current
+    }
+    
+    func aggregate() -> AggregatedItems<LabelType> {
+        let labels = self.createLabels()
+        
+        var recCnt: Int = 0
+        var aggDict: [LabelType: RecordCollection] = [:]
+        for tgtInterval in labels {
+            
+            let recs = self.ref_.dropFirst(recCnt)
+            var aggRecs: [AccountRecord] = []
+            for (i, rec) in recs.enumerated() {
+                guard (tgtInterval.contains(rec.date)) else {
+                    recCnt += i
+                    break
+                }
+                aggRecs.append(rec)
+            }
+            aggDict[tgtInterval] = recs
+        }
+
+        return AggregatedItems(records: aggDict)
     }
         
     func aggregate(
@@ -31,18 +63,13 @@ struct MonthlyAggregator: AggregatorProtocol {
         type: AccountCategoryProvider.AccountType,
         content: (AccountRecord) -> ValueType
     ) -> [LabelType: ValueType] {
-        let dateFilter = DateFilter(start: self.duration_.start, end: duration_.end)
-        let records = self.ref_.getRecords()
-            .filtered(by: dateFilter)
-            .filtered(by: CategoryFilter(category: AccountCategory(type: type)))
-            .sorted(by: DateSotrter(.ascending))
         let labels = self.createLabels()
         
         var recCnt: Int = 0
         var aggDict: [LabelType: ValueType] = [:]
         for tgtInterval in labels {
             
-            let recs = records.dropFirst(recCnt)
+            let recs = self.ref_.dropFirst(recCnt)
             var aggValues: [Double] = []
             for (i, rec) in recs.enumerated() {
                 guard (tgtInterval.contains(rec.date)) else {

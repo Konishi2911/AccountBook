@@ -102,6 +102,21 @@ class AccountBookTests: XCTestCase {
             { Double($0.amounts) }
         print(dict.count)
     }
+    
+    func testNewMonthlyAggregator() throws {
+        let cal = Calendar.current
+        let start = cal.date(from: cal.dateComponents([.year], from: Date()))!
+        let end = cal.date(byAdding: .year, value: 1, to: start)!
+        let duration = DateInterval( start: start, end: end )
+        
+        let mockDB = AccountDatabase.mock()
+        let aggregator = MonthlyAggregator(
+            ref: mockDB.getRecords().filtered(by: CategoryFilter(category: AccountCategory(type: .borrowing))), duration: duration
+        )
+        
+        let dict = aggregator.aggregate().averaged { Double($0.amounts) }
+        print(dict.count)
+    }
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
