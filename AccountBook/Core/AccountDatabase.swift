@@ -76,7 +76,7 @@ extension AccountDatabase {
         
         let recArray = [
             AccountRecord(
-                date: Date(),
+                date: cal.date(from: DateComponents(year: 2020, month: 10, day: 23))!,
                 category: AccountCategory(type: .income, nameSequence: ["Salary"])!,
                 name: "",
                 pcs: 1,
@@ -84,7 +84,7 @@ extension AccountDatabase {
                 remarks: "None"
             ),
             AccountRecord(
-                date: Date(),
+                date: cal.date(from: DateComponents(year: 2020, month: 12, day: 23))!,
                 category: AccountCategory(type: .outlay, nameSequence: ["Food", "Groceries"])!,
                 name: "Coockie",
                 pcs: 1,
@@ -92,7 +92,7 @@ extension AccountDatabase {
                 remarks: "None"
             ),
             AccountRecord(
-                date: Date(),
+                date: cal.date(from: DateComponents(year: 2021, month: 1, day: 23))!,
                 category: AccountCategory(type: .borrowing, nameSequence: ["Scholarship"])!,
                 name: "",
                 pcs: 1,
@@ -100,7 +100,7 @@ extension AccountDatabase {
                 remarks: "None"
             ),
             AccountRecord(
-                date: cal.date(byAdding: .month, value: -1, to: Date())!,
+                date: cal.date(from: DateComponents(year: 2021, month: 3, day: 13))!,
                 category: AccountCategory(type: .borrowing, nameSequence: ["Scholarship"])!,
                 name: "",
                 pcs: 1,
@@ -108,7 +108,7 @@ extension AccountDatabase {
                 remarks: "None"
             ),
             AccountRecord(
-                date: cal.date(byAdding: .month, value: -1, to: Date())!,
+                date: cal.date(from: DateComponents(year: 2021, month: 5, day: 29))!,
                 category: AccountCategory(type: .borrowing, nameSequence: ["Scholarship"])!,
                 name: "",
                 pcs: 1,
@@ -116,13 +116,29 @@ extension AccountDatabase {
                 remarks: "None"
             ),
             AccountRecord(
-                date: cal.date(byAdding: .month, value: -2, to: Date())!,
+                date: cal.date(from: DateComponents(year: 2021, month: 5, day: 3))!,
                 category: AccountCategory(type: .borrowing, nameSequence: ["Scholarship"])!,
                 name: "",
                 pcs: 1,
                 amounts: 2123,
                 remarks: "None"
-            )
+            ),
+            AccountRecord(
+                date: cal.date(from: DateComponents(year: 2021, month: 6, day: 3))!,
+                category: AccountCategory(type: .income, nameSequence: ["Salary"])!,
+                name: "",
+                pcs: 1,
+                amounts: 2123,
+                remarks: "None"
+            ),
+            AccountRecord(
+                date: cal.date(from: DateComponents(year: 2021, month: 8, day: 1))!,
+                category: AccountCategory(type: .outlay, nameSequence: ["Food"])!,
+                name: "",
+                pcs: 1,
+                amounts: 2123,
+                remarks: "None"
+            ),
         ]
         
         let db = AccountDatabase()

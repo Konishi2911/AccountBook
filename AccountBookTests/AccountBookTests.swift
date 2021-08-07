@@ -110,11 +110,13 @@ class AccountBookTests: XCTestCase {
         let duration = DateInterval( start: start, end: end )
         
         let mockDB = AccountDatabase.mock()
+        let records = mockDB.getRecords()
+            .filtered(by: CategoryFilter(category: AccountCategory(type: .borrowing)))
         let aggregator = MonthlyAggregator(
-            ref: mockDB.getRecords().filtered(by: CategoryFilter(category: AccountCategory(type: .borrowing))), duration: duration
+            ref: records, duration: duration
         )
         
-        let dict = aggregator.aggregate().averaged { Double($0.amounts) }
+        let dict = aggregator.aggregate().summed { Double($0.amounts) }
         print(dict.count)
     }
 

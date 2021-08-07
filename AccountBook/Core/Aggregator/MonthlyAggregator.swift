@@ -12,38 +12,22 @@ struct MonthlyAggregator: AggregatorProtocol {
     typealias LabelType = DateInterval
     typealias ValueType = Double
     
-    private let ref_: RecordCollection
     private let duration_: DateInterval
     private let calendar_: Calendar
     
-    @available(*, deprecated)
-    init(
-        ref: AccountDatabase,
-        duration: DateInterval
-    ) {
-        self.ref_ = ref.getRecords()
-            .filtered(
-                by: DateFilter(start: duration.start, end: duration.end)
-            )
-            .sorted(by: DateSotrter(.ascending))
+    init (duration: DateInterval) {
         self.duration_ = duration
         self.calendar_ = Calendar.current
     }
     
-    init (ref: RecordCollection, duration: DateInterval) {
-        self.ref_ = ref
-        self.duration_ = duration
-        self.calendar_ = Calendar.current
-    }
-    
-    func aggregate() -> AggregatedItems<LabelType> {
+    func aggregate(ref: RecordCollection) -> AggregatedItems<LabelType> {
         let labels = self.createLabels()
         
         var recCnt: Int = 0
-        var aggDict: [LabelType: RecordCollection] = [:]
+        var aggDict: [LabelType: [AccountRecord]] = [:]
         for tgtInterval in labels {
             
-            let recs = self.ref_.dropFirst(recCnt)
+            let recs = ref.dropFirst(recCnt)
             var aggRecs: [AccountRecord] = []
             for (i, rec) in recs.enumerated() {
                 guard (tgtInterval.contains(rec.date)) else {
@@ -52,36 +36,10 @@ struct MonthlyAggregator: AggregatorProtocol {
                 }
                 aggRecs.append(rec)
             }
-            aggDict[tgtInterval] = recs
+            aggDict[tgtInterval] = aggRecs
         }
 
         return AggregatedItems(records: aggDict)
-    }
-        
-    func aggregate(
-        strategy: AggregateStrategy<ValueType>,
-        type: AccountCategoryProvider.AccountType,
-        content: (AccountRecord) -> ValueType
-    ) -> [LabelType: ValueType] {
-        let labels = self.createLabels()
-        
-        var recCnt: Int = 0
-        var aggDict: [LabelType: ValueType] = [:]
-        for tgtInterval in labels {
-            
-            let recs = self.ref_.dropFirst(recCnt)
-            var aggValues: [Double] = []
-            for (i, rec) in recs.enumerated() {
-                guard (tgtInterval.contains(rec.date)) else {
-                    recCnt += i
-                    break
-                }
-                aggValues.append(content(rec))
-            }
-            aggDict[tgtInterval] = strategy.calc(contents: aggValues)
-        }
-
-        return aggDict
     }
     
     private func createLabels() -> [DateInterval] {

@@ -71,14 +71,14 @@ struct OverviewView: View {
         let start = cal.date(from: cal.dateComponents([.year], from: Date()))!
         let end = cal.date(byAdding: .year, value: 1, to: start)!
         
+        let records = self.db.getRecords()
+            .filtered(by: DateFilter(start: start, end: end))
+            .filtered(by: CategoryFilter(category: AccountCategory(type: type)))
         let aggregator = MonthlyAggregator(
-            ref: self.db,
-            duration: .init( start: start, end: end )
+            duration: .init(start: start, end: end)
         )
         
-        let result = aggregator.aggregate(
-            strategy: .sum, type: type, content: { Double($0.amounts) }
-        )
+        let result = aggregator.aggregate(ref: records).summed {$0.amounts}
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(
@@ -88,7 +88,7 @@ struct OverviewView: View {
         let src = result.sorted { $0.key < $1.key}
         return .init(
             labels: src.compactMap {$0.key}.map{ dateFormatter.string(from: $0.start) },
-            values: [Double](src.compactMap {$0.value})
+            values: [Double](src.compactMap {Double($0.value)})
         )
     }
 }
