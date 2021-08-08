@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F820AE7026BF679E00DF0B6E /* StackChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820AE6F26BF679E00DF0B6E /* StackChartView.swift */; };
+		F820AE7226BF686D00DF0B6E /* StackChartSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820AE7126BF686D00DF0B6E /* StackChartSource.swift */; };
 		F82AE1FD269C8B40007B51D4 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AE1FC269C8B40007B51D4 /* SidebarView.swift */; };
 		F86C464C26AF01F300AB8CFD /* MonthlyAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */; };
 		F86C464D26AF01F300AB8CFD /* MonthlyAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */; };
@@ -85,6 +87,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F820AE6F26BF679E00DF0B6E /* StackChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackChartView.swift; sourceTree = "<group>"; };
+		F820AE7126BF686D00DF0B6E /* StackChartSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackChartSource.swift; sourceTree = "<group>"; };
 		F82AE1FC269C8B40007B51D4 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyAggregator.swift; sourceTree = "<group>"; };
 		F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatorProtocol.swift; sourceTree = "<group>"; };
@@ -149,6 +153,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F820AE6C26BF676800DF0B6E /* StackChart */ = {
+			isa = PBXGroup;
+			children = (
+				F820AE6F26BF679E00DF0B6E /* StackChartView.swift */,
+				F820AE7126BF686D00DF0B6E /* StackChartSource.swift */,
+			);
+			path = StackChart;
+			sourceTree = "<group>";
+		};
 		F8948EF926BB4E690000DA0F /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +193,7 @@
 		F8EEA489269AA0CF0067C5A4 /* AccountBook */ = {
 			isa = PBXGroup;
 			children = (
+				F820AE6C26BF676800DF0B6E /* StackChart */,
 				F8948EF926BB4E690000DA0F /* DetailView */,
 				F8F17BBC26A0EBB600F92186 /* BarChart */,
 				F8F17BBF26A8FB8500F92186 /* AccountEntryDialog */,
@@ -454,9 +468,11 @@
 				F8EEA4CA269AF51D0067C5A4 /* RecordCollection.swift in Sources */,
 				F86C464F26AF020800AB8CFD /* AggregatorProtocol.swift in Sources */,
 				F8F17BC126A8FC3000F92186 /* AccountEntryDialog.swift in Sources */,
+				F820AE7026BF679E00DF0B6E /* StackChartView.swift in Sources */,
 				F8EEA48B269AA0CF0067C5A4 /* AccountBookApp.swift in Sources */,
 				F8EEA4D3269B2A470067C5A4 /* SorterProtocol.swift in Sources */,
 				F8F0B612269FB8000016E648 /* HistoryItem.swift in Sources */,
+				F820AE7226BF686D00DF0B6E /* StackChartSource.swift in Sources */,
 				F8EEA4CD269B14DD0067C5A4 /* FilterProtocol.swift in Sources */,
 				F8F17BC326AA389F00F92186 /* AccountItemModel.swift in Sources */,
 				F8F0B60A269D05980016E648 /* HistoryView.swift in Sources */,
