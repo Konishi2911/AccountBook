@@ -29,6 +29,7 @@ struct StackChartView: View {
                             width: barWidth(value: $0.tuple.1, viewWidth: geom.size.width),
                             height: self.chartWidth
                         )
+                        .foregroundColor(Color($0.color))
                 }
             }
         }.frame(height: self.chartWidth)
@@ -49,6 +50,7 @@ struct StackChartView: View {
             RoundedRectangle(cornerRadius: 5)
                 .frame(maxWidth: 30)
                 .frame(height: 10)
+                .foregroundColor(Color(item.color))
             Text(
                 item.tuple.0 + ": " +
                 self.valueFormatter.string(from: NSNumber(value: item.tuple.1))!
@@ -68,7 +70,8 @@ struct StackChartView_Previews: PreviewProvider {
                 "test": 243.0,
                 "TEST": 453,
                 "Test": 343
-            ]
+            ],
+            colorMap: .green
         )
         StackChartView(source: source)
     }
