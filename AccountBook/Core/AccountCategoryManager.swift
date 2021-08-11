@@ -7,11 +7,13 @@
 
 import Foundation
 
-struct AccountCategoryManager {
+struct AccountCategoryManager: Hashable {
     private let type_: AccountCategory.AccountType
     private let nameSeq_: [String]
     
     private let provider: AccountCategoryProvider
+    
+    var depth: UInt { UInt(nameSeq_.count) }
     
     init(type: AccountCategory.AccountType) {
         self.type_ = type
@@ -30,11 +32,49 @@ struct AccountCategoryManager {
         )!
     }
     
-    func getChildCategoryList() -> [String] {
+    func getCategoryNameStack() -> [String] {
+        return self.nameSeq_
+    }
+    
+    func getChildCategoryNames() -> [String] {
         return self.provider.categoryNames
+    }
+    
+    func getChildCategories() -> [AccountCategoryManager] {
+        var tmp: [AccountCategoryManager] = []
+        for endName in self.provider.categoryNames {
+            var nameSeq = self.nameSeq_
+            nameSeq.append(endName)
+            tmp.append(
+                AccountCategoryManager(type: self.type_, nameSequence: nameSeq)!
+            )
+        }
+        
+        return tmp
     }
     
     func hasChildCategory() -> Bool {
         return !self.provider.isEmpty
+    }
+    
+    public func contains(_ category: AccountCategory) -> Bool {
+        if self.type_ != category.accountType { return false }
+        if self.nameSeq_.count == 0 { return true }
+        if self.nameSeq_.count
+            > category.categoryNameSequence.count { return false }
+        
+        for (i, cat) in self.nameSeq_.enumerated() {
+            if category.categoryNameSequence[i] != cat { return false }
+        }
+        return true
+    }
+    
+    
+    // MARK: - Required functions to Conform to Hashable
+    static func == (lhs: AccountCategoryManager, rhs: AccountCategoryManager) -> Bool {
+        lhs.nameSeq_ == rhs.nameSeq_
+    }
+    func hash(into hasher: inout Hasher) {
+        return nameSeq_.hash(into: &hasher)
     }
 }

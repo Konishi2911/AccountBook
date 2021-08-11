@@ -34,24 +34,45 @@ struct DetailView: View {
                 .padding([.trailing])
             }
             HStack {
-                self.totalAmounts(label: "Incomes", value: self.incomeAmounts)
-                self.totalAmounts(label: "Outlay", value: self.outlayAmounts)
+                self.totalAmounts(
+                    label: "Incomes",
+                    source: self.calcSource(
+                        aggregator: CategoryAggregator(category: AccountCategoryManager(type: .income))
+                    )
+                )
+                self.totalAmounts(
+                    label: "Outlay",
+                    source: self.calcSource(
+                        aggregator: CategoryAggregator(category: AccountCategoryManager(type: .outlay))
+                    )
+                )
             }
         }
     }
     
-    func totalAmounts(label: String, value: Int) -> some View {
+    private func calcSource(aggregator: CategoryAggregator) -> [String: Double] {
+        let agg = aggregator.aggregate(
+            ref: self.ref_.getRecords()
+                .filtered(by: DateFilter(start: self.duration.start, end: self.duration.end))
+        )
+        let tmp = agg.summed { $0.amounts }
+        return Dictionary(tmp.map {
+            return ($0.key.getCategoryNameStack().last!, Double($0.value))
+        }) { (first, _) in first }
+    }
+    
+    func totalAmounts(label: String, source: [String: Double]) -> some View {
         let fmt = NumberFormatter()
         fmt.numberStyle = .currency
+        
+        let total = source.reduce(0){$0 + $1.value}
         
         return VStack {
             HStack {
                 Text(label)
-                Text(fmt.string(from: NSNumber(value: value))!)
+                Text(fmt.string(from: NSNumber(value: total))!)
             }
-            Rectangle()
-                .foregroundColor(.gray)
-                .padding([.horizontal, .bottom])
+            StackChartView(source: StackChartSource(items: source), colorMap: .blue)
         }
     }
     func shiftDuration(value: Int) {

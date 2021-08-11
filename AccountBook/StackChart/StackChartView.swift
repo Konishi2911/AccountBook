@@ -13,6 +13,11 @@ struct StackChartView: View {
     let source: StackChartSource
     let valueFormatter: NumberFormatter = .init()
     
+    
+    init(source: StackChartSource, colorMap: ColorMap = .blue) {
+        self.source = .init(items: source.items, colorMap: colorMap)
+    }
+    
     var body: some View {
         VStack(alignment: .center) {
             self.stackChart().padding()

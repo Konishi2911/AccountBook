@@ -14,6 +14,8 @@
 		F86C464D26AF01F300AB8CFD /* MonthlyAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */; };
 		F86C464F26AF020800AB8CFD /* AggregatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */; };
 		F86C465026AF020800AB8CFD /* AggregatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */; };
+		F87EC77C26C1DDDC008E60CD /* CategoryAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */; };
+		F87EC77D26C42248008E60CD /* CategoryAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */; };
 		F8948EFB26BB4E780000DA0F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFA26BB4E780000DA0F /* DetailView.swift */; };
 		F8948EFD26BCA0780000DA0F /* RecordCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */; };
 		F8948EFE26BDF2710000DA0F /* RecordCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */; };
@@ -92,6 +94,7 @@
 		F82AE1FC269C8B40007B51D4 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyAggregator.swift; sourceTree = "<group>"; };
 		F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatorProtocol.swift; sourceTree = "<group>"; };
+		F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAggregator.swift; sourceTree = "<group>"; };
 		F8948EFA26BB4E780000DA0F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCollectionProtocol.swift; sourceTree = "<group>"; };
 		F8EEA487269AA0CF0067C5A4 /* AccountBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccountBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -279,6 +282,7 @@
 			children = (
 				F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */,
 				F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */,
+				F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */,
 			);
 			path = Aggregator;
 			sourceTree = "<group>";
@@ -452,6 +456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F87EC77C26C1DDDC008E60CD /* CategoryAggregator.swift in Sources */,
 				F86C464C26AF01F300AB8CFD /* MonthlyAggregator.swift in Sources */,
 				F8948EFB26BB4E780000DA0F /* DetailView.swift in Sources */,
 				F8EEA4BB269AA2950067C5A4 /* AccountDatabase.swift in Sources */,
@@ -498,6 +503,7 @@
 				F8EEA4CB269AF51D0067C5A4 /* RecordCollection.swift in Sources */,
 				F8EEA4BF269AA2FD0067C5A4 /* AccountRecord.swift in Sources */,
 				F8EEA49E269AA0D10067C5A4 /* AccountBookTests.swift in Sources */,
+				F87EC77D26C42248008E60CD /* CategoryAggregator.swift in Sources */,
 				F8F0B60F269DF9CD0016E648 /* BMTReader.swift in Sources */,
 				F8F17BCA26ABD2CD00F92186 /* HistoryItem.swift in Sources */,
 				F8EEA4E0269B3B7A0067C5A4 /* DateSorter.swift in Sources */,

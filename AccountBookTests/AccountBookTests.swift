@@ -87,19 +87,13 @@ class AccountBookTests: XCTestCase {
         print(model.subCategoryName)
     }
     
-    func testMonthlyAggregator() throws {
-        let cal = Calendar.current
-        let start = cal.date(from: cal.dateComponents([.year], from: Date()))!
-        let end = cal.date(byAdding: .year, value: 1, to: start)!
-        let duration = DateInterval( start: start, end: end )
-        
+    func testCategoryAggregator() throws {
         let mockDB = AccountDatabase.mock()
-        let aggregator = MonthlyAggregator(
-            ref: mockDB, duration: duration
-        )
+        let records = mockDB.getRecords()
         
-        let dict = aggregator.aggregate(strategy: .sum, type: .borrowing)
-            { Double($0.amounts) }
+        let aggregator = CategoryAggregator(category: .init(type: .outlay))
+        
+        let dict = aggregator.aggregate(ref: records).summed { Double($0.amounts) }
         print(dict.count)
     }
     
@@ -113,10 +107,10 @@ class AccountBookTests: XCTestCase {
         let records = mockDB.getRecords()
             .filtered(by: CategoryFilter(category: AccountCategory(type: .borrowing)))
         let aggregator = MonthlyAggregator(
-            ref: records, duration: duration
+            duration: duration
         )
         
-        let dict = aggregator.aggregate().summed { Double($0.amounts) }
+        let dict = aggregator.aggregate(ref: records).summed { Double($0.amounts) }
         print(dict.count)
     }
 

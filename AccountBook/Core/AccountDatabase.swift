@@ -117,7 +117,9 @@ extension AccountDatabase {
             ),
             AccountRecord(
                 date: cal.date(from: DateComponents(year: 2021, month: 5, day: 3))!,
-                category: AccountCategory(type: .borrowing, nameSequence: ["Scholarship"])!,
+                category: AccountCategory(type: .outlay, nameSequence:
+                                            ["Entertainments", "Hobby"]
+                )!,
                 name: "",
                 pcs: 1,
                 amounts: 2123,
@@ -133,7 +135,39 @@ extension AccountDatabase {
             ),
             AccountRecord(
                 date: cal.date(from: DateComponents(year: 2021, month: 8, day: 1))!,
-                category: AccountCategory(type: .outlay, nameSequence: ["Food"])!,
+                category: AccountCategory(type: .outlay, nameSequence:
+                                            ["Food", "Groceries"]
+                )!,
+                name: "",
+                pcs: 1,
+                amounts: 2123,
+                remarks: "None"
+            ),
+            AccountRecord(
+                date: cal.date(from: DateComponents(year: 2021, month: 8, day: 1))!,
+                category: AccountCategory(type: .outlay, nameSequence:
+                                            ["Food", "Eating Out"]
+                )!,
+                name: "",
+                pcs: 1,
+                amounts: 2123,
+                remarks: "None"
+            ),
+            AccountRecord(
+                date: cal.date(from: DateComponents(year: 2021, month: 8, day: 1))!,
+                category: AccountCategory(type: .outlay, nameSequence:
+                                            ["Food", "Groceries"]
+                )!,
+                name: "",
+                pcs: 1,
+                amounts: 2123,
+                remarks: "None"
+            ),
+            AccountRecord(
+                date: cal.date(from: DateComponents(year: 2021, month: 8, day: 1))!,
+                category: AccountCategory(type: .outlay, nameSequence:
+                                            ["Utilities", "Gas"]
+                )!,
                 name: "",
                 pcs: 1,
                 amounts: 2123,
