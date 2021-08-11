@@ -20,7 +20,7 @@ struct StackChartView: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            self.stackChart().padding()
+            self.stackChart().padding(5)
             self.legends()
         }
     }

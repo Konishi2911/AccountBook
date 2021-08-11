@@ -69,8 +69,8 @@ struct DetailView: View {
         
         return VStack {
             HStack {
-                Text(label)
-                Text(fmt.string(from: NSNumber(value: total))!)
+                Text(label).font(.title3)
+                Text(fmt.string(from: NSNumber(value: total))!).font(.title3)
             }
             StackChartView(source: StackChartSource(items: source), colorMap: .blue)
         }
