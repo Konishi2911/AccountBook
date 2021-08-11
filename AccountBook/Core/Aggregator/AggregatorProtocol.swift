@@ -11,13 +11,10 @@ protocol AggregatorProtocol {
     associatedtype LabelType: Hashable
     associatedtype ValueType: FloatingPoint
     
-    func aggregate(
-        strategy: AggregateStrategy<ValueType>,
-        type: AccountCategoryProvider.AccountType,
-        content: (AccountRecord) -> ValueType
-    ) -> [LabelType: ValueType]
+    func aggregate(ref: RecordCollection) -> AggregatedItems<LabelType>
 }
 
+@available(*, deprecated)
 struct AggregateStrategy<T> where T: FloatingPoint {
     private let method: ([T]) -> T
     
@@ -44,6 +41,35 @@ struct AggregateStrategy<T> where T: FloatingPoint {
             for val in $0 { tmp += val }
             return tmp / T($0.count)
         }
+    }
+}
+
+struct AggregatedItems<L> where L: Hashable {
+    let records: [L : [AccountRecord]]
+    var count: Int { self.records.count }
+    
+    func summed<T>(content: (AccountRecord) -> T ) -> [L: T] where T: Numeric {
+        var itemDict: [L: T] = [:]
+        for pair in self.records {
+            var sum: T = .zero
+            for rec in pair.value {
+                sum += content(rec)
+            }
+            itemDict[pair.key] = sum
+        }
+        return itemDict
+    }
+    
+    func averaged<T>(content: (AccountRecord) -> T ) -> [L: T] where T: FloatingPoint {
+        var itemDict: [L: T] = [:]
+        for pair in self.records {
+            var sum: T = .zero
+            for rec in pair.value {
+                sum += content(rec)
+            }
+            itemDict[pair.key] = sum / T(self.records.count)
+        }
+        return itemDict
     }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AccountCategory: Equatable {
+struct AccountCategory: Equatable, Hashable {
     typealias AccountType = AccountCategoryProvider.AccountType
     
     public let accountType: AccountType

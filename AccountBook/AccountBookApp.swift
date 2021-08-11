@@ -17,9 +17,7 @@ struct AccountBookApp: App {
     }
     
     func loadOldDB() throws -> AccountDatabase {
-        let url = URL(fileURLWithPath: "/Users/koheikonishi/Downloads/transactionTable_bak.bmt")
-        let data = try Data(contentsOf: url)
-        
+        let url = URL(fileURLWithPath: "/Users/koheikonishi/Downloads/transactionTable_bak.bmt")        
         
         return try AccountDatabase(fromBMT: url)
     }
