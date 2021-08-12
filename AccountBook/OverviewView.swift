@@ -56,7 +56,17 @@ struct OverviewView: View {
                 )
                 .padding([.horizontal])
                 .frame(height: geom.size.height * 0.3)
-                HistoryView(db: self.db)
+                HStack {
+                    HistoryView(db: self.db)
+                    DetailView(
+                        ref: self.db,
+                        duration: DateInterval(
+                            start: Calendar.current.date(from: DateComponents(year: 2021, month: 5))!,
+                            end: Calendar.current.date(from: DateComponents(year: 2021, month: 6))!
+                        )
+                    )
+                    .padding(.trailing)
+                }
             }
         }
     }

@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct StackChartView: View {
-    private let chartWidth: CGFloat = 15
+    private let chartWidth: CGFloat = 10
     
     let source: StackChartSource
-    let valueFormatter: NumberFormatter = .init()
+    let valueFormatter: NumberFormatter
     
     
-    init(source: StackChartSource, colorMap: ColorMap = .blue) {
+    init(source: StackChartSource,
+         colorMap: ColorMap = .blue,
+         formatter: NumberFormatter = .init()
+    ) {
         self.source = .init(items: source.items, colorMap: colorMap)
+        self.valueFormatter = formatter
     }
     
     var body: some View {
@@ -53,13 +57,14 @@ struct StackChartView: View {
     func legendItem(item: StackChartSource.Item<Double>) -> some View {
         HStack {
             RoundedRectangle(cornerRadius: 5)
-                .frame(maxWidth: 30)
+                .frame(maxWidth: 20)
                 .frame(height: 10)
                 .foregroundColor(Color(item.color))
             Text(
                 item.tuple.0 + ": " +
-                self.valueFormatter.string(from: NSNumber(value: item.tuple.1))!
+                self.valueFormatter.string(from: NSNumber(value: Int(item.tuple.1)))!
             )
+            .font(.caption)
         }
     }
     
@@ -70,6 +75,8 @@ struct StackChartView: View {
 
 struct StackChartView_Previews: PreviewProvider {
     static var previews: some View {
+        let fmt = NumberFormatter()
+        fmt.numberStyle = .currency
         let source = StackChartSource(
             items: [
                 "test": 243.0,
@@ -78,6 +85,6 @@ struct StackChartView_Previews: PreviewProvider {
             ],
             colorMap: .green
         )
-        StackChartView(source: source)
+        return StackChartView(source: source, formatter: fmt)
     }
 }

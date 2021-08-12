@@ -69,11 +69,14 @@ struct DetailView: View {
         
         return VStack {
             HStack {
-                Text(label).font(.title3)
+                Text(label).font(.title3).bold()
                 Text(fmt.string(from: NSNumber(value: total))!).font(.title3)
             }
-            StackChartView(source: StackChartSource(items: source), colorMap: .blue)
+            StackChartView(source: StackChartSource(items: source),
+                           colorMap: .blue,
+                           formatter: fmt)
         }
+        .padding(.horizontal)
     }
     func shiftDuration(value: Int) {
         let newStartDate = self.cal_.date(
