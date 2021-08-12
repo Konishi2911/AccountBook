@@ -12,49 +12,34 @@ struct MonthlyAggregator: AggregatorProtocol {
     typealias LabelType = DateInterval
     typealias ValueType = Double
     
-    private let ref_: AccountDatabase
-    private let calendar_: Calendar
     private let duration_: DateInterval
+    private let calendar_: Calendar
     
-    
-    init(
-        ref: AccountDatabase,
-        duration: DateInterval
-    ) {
-        self.ref_ = ref
-        self.calendar_ = Calendar.current
+    init (duration: DateInterval) {
         self.duration_ = duration
+        self.calendar_ = Calendar.current
     }
-        
-    func aggregate(
-        strategy: AggregateStrategy<ValueType>,
-        type: AccountCategoryProvider.AccountType,
-        content: (AccountRecord) -> ValueType
-    ) -> [LabelType: ValueType] {
-        let dateFilter = DateFilter(start: self.duration_.start, end: duration_.end)
-        let records = self.ref_.getRecords()
-            .filtered(by: dateFilter)
-            .filtered(by: CategoryFilter(category: AccountCategory(type: type)))
-            .sorted(by: DateSotrter(.ascending))
+    
+    func aggregate(ref: RecordCollection) -> AggregatedItems<LabelType> {
         let labels = self.createLabels()
         
         var recCnt: Int = 0
-        var aggDict: [LabelType: ValueType] = [:]
+        var aggDict: [LabelType: [AccountRecord]] = [:]
         for tgtInterval in labels {
             
-            let recs = records.dropFirst(recCnt)
-            var aggValues: [Double] = []
+            let recs = ref.dropFirst(recCnt)
+            var aggRecs: [AccountRecord] = []
             for (i, rec) in recs.enumerated() {
                 guard (tgtInterval.contains(rec.date)) else {
                     recCnt += i
                     break
                 }
-                aggValues.append(content(rec))
+                aggRecs.append(rec)
             }
-            aggDict[tgtInterval] = strategy.calc(contents: aggValues)
+            aggDict[tgtInterval] = aggRecs
         }
 
-        return aggDict
+        return AggregatedItems(records: aggDict)
     }
     
     private func createLabels() -> [DateInterval] {

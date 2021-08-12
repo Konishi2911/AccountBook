@@ -7,49 +7,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "24E90E85-0BBA-4B17-9EBE-4CAAFD5C182D"
-            shouldBeEnabled = "No"
+            uuid = "CF2E8C2E-AA36-48B6-8816-A3ABA7E3E066"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AccountBook/Core/Aggregator/MonthlyAggregator.swift"
+            filePath = "AccountBookTests/AccountBookTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "aggregate(strategy:type:content:)"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "testCategoryAggregator()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "24E90E85-0BBA-4B17-9EBE-4CAAFD5C182D - f6edcf91ce3c937f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AccountBook.MonthlyAggregator.aggregate(strategy: AccountBook.AggregateStrategy&lt;Swift.Double&gt;, type: AccountBook.AccountCategoryProvider.AccountType, content: (AccountBook.AccountRecord) -&gt; Swift.Double) -&gt; Swift.Dictionary&lt;Foundation.DateInterval, Swift.Double&gt;"
-                  moduleName = "AccountBook"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/koheikonishi/Documents/AccountBook/AccountBook/Core/Aggregator/MonthlyAggregator.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "732">
-               </Location>
-               <Location
-                  uuid = "24E90E85-0BBA-4B17-9EBE-4CAAFD5C182D - baa678178afbb20d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AccountBookTests.MonthlyAggregator.aggregate(strategy: AccountBookTests.AggregateStrategy&lt;Swift.Double&gt;, type: AccountBookTests.AccountCategoryProvider.AccountType, content: (AccountBookTests.AccountRecord) -&gt; Swift.Double) -&gt; Swift.Dictionary&lt;Foundation.DateInterval, Swift.Double&gt;"
-                  moduleName = "AccountBookTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/koheikonishi/Documents/AccountBook/AccountBook/Core/Aggregator/MonthlyAggregator.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "732">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

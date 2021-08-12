@@ -30,10 +30,10 @@ class AccountItemModel: ObservableObject {
         pcs: Int
     ) {
         let tmpCatName = category ??
-            AccountCategoryManager(type: type).getChildCategoryList().first!
+            AccountCategoryManager(type: type).getChildCategoryNames().first!
         let tmpSubCatName = subCategory ??
             AccountCategoryManager(type: type, nameSequence: [tmpCatName])?
-            .getChildCategoryList().first ?? ""
+            .getChildCategoryNames().first ?? ""
         
         self.type = type
         self.name = name
@@ -51,14 +51,14 @@ class AccountItemModel: ObservableObject {
     }
     
     var categoryList: [String] {
-        return AccountCategoryManager(type: self.type).getChildCategoryList()
+        return AccountCategoryManager(type: self.type).getChildCategoryNames()
     }
     
     var subCategoryList: [String]? {
         guard self.hasSubCategory else { return nil }
         
         return AccountCategoryManager(type: self.type, nameSequence: [self.categoryName])?
-            .getChildCategoryList()
+            .getChildCategoryNames()
     }
     
     private func updateCategory() {

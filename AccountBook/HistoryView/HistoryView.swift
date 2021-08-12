@@ -13,14 +13,17 @@ struct HistoryView: View {
     var body: some View {
         let items = self.aggregateItems()
         
-        List(0 ..< items.count) { i in
-            HistoryItemView(item: items[i])
-        }
+            List(0 ..< items.count) { i in
+                HistoryItemView(item: items[i])
+            }
     }
     
     func aggregateItems() -> [HistoryItem] {
         var items: [HistoryItem] = []
-        for rec in self.db.getRecords().getArray() {
+        for rec in self.db
+            .getRecords()
+            .sorted(by: DateSotrter(.ascending))
+            .getArray() {
             items.append(.init(from: rec))
         }
         return items
@@ -30,12 +33,18 @@ struct HistoryView: View {
 struct HistoryItemView: View {
     let item: HistoryItem
     private let currencyFormatter: NumberFormatter
+    private let dateFormatter: DateFormatter
     
     init(item: HistoryItem) {
         self.item = item
         
         self.currencyFormatter = NumberFormatter()
         currencyFormatter.numberStyle = .currency
+        
+        self.dateFormatter = DateFormatter()
+        self.dateFormatter.dateFormat = DateFormatter.dateFormat(
+            fromTemplate: "MMMdd", options: 0, locale: nil
+        )
     }
     
     var body: some View {
@@ -50,11 +59,17 @@ struct HistoryItemView: View {
             }
             VStack(alignment: .leading) {
                 HStack {
-                    Text(self.item.category.categoryNameSequence.first!).font(.caption)
-                    Text(self.item.name).font(.caption)
+                    Text(self.dateFormatter.string(from: self.item.date)).font(.caption)
+                    Text(self.item.category.categoryNameSequence.first!)
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .fontWeight(.bold)
+                    Text(self.item.name)
+                        .font(.caption)
+                        .foregroundColor(.gray)
                 }
                 Text(
-                    currencyFormatter.string(
+                    self.currencyFormatter.string(
                         from: NSNumber(value: self.item.amounts)
                     )!
                 )
