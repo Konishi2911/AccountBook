@@ -14,6 +14,8 @@
 		F86C464D26AF01F300AB8CFD /* MonthlyAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */; };
 		F86C464F26AF020800AB8CFD /* AggregatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */; };
 		F86C465026AF020800AB8CFD /* AggregatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */; };
+		F87C2B7226C6C8D800405351 /* IOTableProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87C2B7126C6C8D800405351 /* IOTableProxy.swift */; };
+		F87C2B7326C89C2700405351 /* IOTableProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87C2B7126C6C8D800405351 /* IOTableProxy.swift */; };
 		F87EC77C26C1DDDC008E60CD /* CategoryAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */; };
 		F87EC77D26C42248008E60CD /* CategoryAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */; };
 		F8948EFB26BB4E780000DA0F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFA26BB4E780000DA0F /* DetailView.swift */; };
@@ -94,6 +96,7 @@
 		F82AE1FC269C8B40007B51D4 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		F86C464B26AF01F300AB8CFD /* MonthlyAggregator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyAggregator.swift; sourceTree = "<group>"; };
 		F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatorProtocol.swift; sourceTree = "<group>"; };
+		F87C2B7126C6C8D800405351 /* IOTableProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOTableProxy.swift; sourceTree = "<group>"; };
 		F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAggregator.swift; sourceTree = "<group>"; };
 		F8948EFA26BB4E780000DA0F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCollectionProtocol.swift; sourceTree = "<group>"; };
@@ -163,6 +166,14 @@
 				F820AE7126BF686D00DF0B6E /* StackChartSource.swift */,
 			);
 			path = StackChart;
+			sourceTree = "<group>";
+		};
+		F87C2B7026C6C8AF00405351 /* IO */ = {
+			isa = PBXGroup;
+			children = (
+				F87C2B7126C6C8D800405351 /* IOTableProxy.swift */,
+			);
+			path = IO;
 			sourceTree = "<group>";
 		};
 		F8948EF926BB4E690000DA0F /* DetailView */ = {
@@ -243,6 +254,7 @@
 		F8EEA4B6269AA2430067C5A4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F87C2B7026C6C8AF00405351 /* IO */,
 				F8EEA4E1269B62740067C5A4 /* Aggregator */,
 				F8EEA4BA269AA2950067C5A4 /* AccountDatabase.swift */,
 				F8F0B60C269DF5250016E648 /* Compatible */,
@@ -476,6 +488,7 @@
 				F820AE7026BF679E00DF0B6E /* StackChartView.swift in Sources */,
 				F8EEA48B269AA0CF0067C5A4 /* AccountBookApp.swift in Sources */,
 				F8EEA4D3269B2A470067C5A4 /* SorterProtocol.swift in Sources */,
+				F87C2B7226C6C8D800405351 /* IOTableProxy.swift in Sources */,
 				F8F0B612269FB8000016E648 /* HistoryItem.swift in Sources */,
 				F820AE7226BF686D00DF0B6E /* StackChartSource.swift in Sources */,
 				F8EEA4CD269B14DD0067C5A4 /* FilterProtocol.swift in Sources */,
@@ -510,6 +523,7 @@
 				F8EEA4C2269AA6FC0067C5A4 /* AccountCategory.swift in Sources */,
 				F8EEA4CE269B14DD0067C5A4 /* FilterProtocol.swift in Sources */,
 				F86C465026AF020800AB8CFD /* AggregatorProtocol.swift in Sources */,
+				F87C2B7326C89C2700405351 /* IOTableProxy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

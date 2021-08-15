@@ -10,10 +10,17 @@ import Foundation
 class AccountDatabase {
     typealias RecordType = AccountRecord
     
+    private var sourceURL: URL? = nil
     private var table_: [RecordType]
     
     public init() {
         table_ = []
+    }
+    
+    public init(from url: URL) throws {
+        let ioProxy = try IOTableProxy(url: url)
+        self.table_ = ioProxy.getTable()
+        self.sourceURL = url
     }
     
     public init(fromBMT url: URL) throws {
@@ -32,23 +39,35 @@ class AccountDatabase {
             }
         }
     }
-    /*
-    public init(_ url: URL) throws {
-        //let data = try Data(contentsOf: url)
-    }
- */
+    
     
     public var numberOfRecords: Int { self.table_.count }
+    
+    public func setURL(url: URL) {
+        self.sourceURL = url
+    }
+    
+    internal func save() {
+        let proxy = IOTableProxy(base: self.table_)
+        
+        if let url = self.sourceURL {
+            try! proxy.save(to: url)
+        }
+    }
     
     
     // MARK: Operating Database
 
     public func add(_ record: RecordType) {
         table_.append(record)
+        
+        self.save()
     }
     
     public func remove(_ recordNo: Int) {
         table_.remove(at: recordNo)
+        
+        self.save()
     }
     
     public func replace(_ record: RecordType, to newRecord: RecordType) {

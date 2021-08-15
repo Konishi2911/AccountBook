@@ -120,5 +120,30 @@ class AccountBookTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testDatabaseOutput() throws {
+        let mockDB = AccountDatabase.mock()
+        let dir = try FileManager.default.url(for: .applicationSupportDirectory,
+                                              in: .userDomainMask,
+                                              appropriateFor: nil, create: false)
+        let filePath = dir.appendingPathComponent("IOTest.act")
+        
+        print("FilePath: \(filePath)")
+        
+        mockDB.setURL(url: filePath)
+        mockDB.save()
+    }
+    
+    func testDatabaseInput() throws {
+        let mockDB = AccountDatabase.mock()
+        
+        let dir = try FileManager.default.url(for: .applicationSupportDirectory,
+                                              in: .userDomainMask,
+                                              appropriateFor: nil, create: false)
+        let filePath = dir.appendingPathComponent("IOTest.act")
+        
+        let openedDB = try AccountDatabase(from: filePath)
+        assert(openedDB.getRecords().getArray() == mockDB.getRecords().getArray())
+    }
 
 }
