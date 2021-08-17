@@ -51,6 +51,7 @@ class AccountDatabase {
         let proxy = IOTableProxy(base: self.table_)
         
         if let url = self.sourceURL {
+            print("Saved to \(url)")
             try! proxy.save(to: url)
         }
     }

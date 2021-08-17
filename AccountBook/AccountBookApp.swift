@@ -11,14 +11,32 @@ import SwiftUI
 struct AccountBookApp: App {
     var body: some Scene {
         WindowGroup {
-            let db = try! loadOldDB()
+            let db = loadOldDB() ?? AccountDatabase.mock()
             ContentView(db: db)
         }
     }
     
-    func loadOldDB() throws -> AccountDatabase {
-        let url = URL(fileURLWithPath: "/Users/koheikonishi/Downloads/transactionTable_bak.bmt")        
+    func loadOldDB() -> AccountDatabase? {                
+        do {
+            let urlBMT = try FileManager.default.url(
+                for: .applicationSupportDirectory, in: .userDomainMask,
+                appropriateFor: nil, create: false
+            ).appendingPathComponent("transactionTable_bak.bmt")
+            
+            let url = try FileManager.default.url(
+                for: .applicationSupportDirectory, in: .userDomainMask,
+                appropriateFor: nil, create: false
+            ).appendingPathComponent("AccountSource.act")
         
-        return try AccountDatabase(fromBMT: url)
+            guard let db = try? AccountDatabase(from: url) else {
+                let tmp = try AccountDatabase(fromBMT: urlBMT)
+                tmp.setURL(url: url)
+                return tmp
+            }
+            return db
+            
+        } catch {
+            return nil
+        }
     }
 }
