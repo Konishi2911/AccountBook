@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountEntryDialog: View {
     @Binding var showingSelf: Bool
-    @StateObject private var model: AccountItemModel = .default
+    @ObservedObject private var model: AccountItemModel
     
     @State private var bool: Bool = false
     private let currencyFormatter = NumberFormatter()
@@ -18,6 +18,7 @@ struct AccountEntryDialog: View {
     
     init(isShowing: Binding<Bool>, ref: AccountDatabase) {
         self._showingSelf = isShowing
+        self.model = .default
         
         self.currencyFormatter.numberStyle = .currency
         self.currencyFormatter.currencyGroupingSeparator = ","

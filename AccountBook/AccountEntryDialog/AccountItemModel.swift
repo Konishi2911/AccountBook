@@ -49,6 +49,19 @@ class AccountItemModel: ObservableObject {
         self.remarks = remarks
     }
     
+    convenience init(record: AccountRecord) {
+        self.init(
+            date: record.date,
+            type: record.category.accountType,
+            name: record.name,
+            category: record.category.categoryNameSequence.first,
+            subCategory: record.category.getCategoryName(depth: 1),
+            amount: Int(record.amounts),
+            pcs: Int(record.pcs),
+            remarks: record.remarks
+        )
+    }
+    
     var hasSubCategory: Bool {
         return AccountCategoryManager(
             type: self.type,

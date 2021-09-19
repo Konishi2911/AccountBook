@@ -21,6 +21,11 @@
 		F8948EFB26BB4E780000DA0F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFA26BB4E780000DA0F /* DetailView.swift */; };
 		F8948EFD26BCA0780000DA0F /* RecordCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */; };
 		F8948EFE26BDF2710000DA0F /* RecordCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */; };
+		F8D57A2926F71AD500058F37 /* MonthlyAggregatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A2826F71AD500058F37 /* MonthlyAggregatorTests.swift */; };
+		F8D57A2B26F7290700058F37 /* StubbedDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A2A26F7290700058F37 /* StubbedDatabase.swift */; };
+		F8D57A2D26F73DBF00058F37 /* CategoryAggregatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A2C26F73DBF00058F37 /* CategoryAggregatorTests.swift */; };
+		F8D57A3126F7488000058F37 /* DateFileterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A3026F7488000058F37 /* DateFileterTests.swift */; };
+		F8D57A3326F74DBE00058F37 /* CategoryFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A3226F74DBE00058F37 /* CategoryFilterTests.swift */; };
 		F8EEA48B269AA0CF0067C5A4 /* AccountBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEA48A269AA0CF0067C5A4 /* AccountBookApp.swift */; };
 		F8EEA48D269AA0CF0067C5A4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEA48C269AA0CF0067C5A4 /* ContentView.swift */; };
 		F8EEA48F269AA0D10067C5A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8EEA48E269AA0D10067C5A4 /* Assets.xcassets */; };
@@ -100,6 +105,11 @@
 		F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAggregator.swift; sourceTree = "<group>"; };
 		F8948EFA26BB4E780000DA0F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCollectionProtocol.swift; sourceTree = "<group>"; };
+		F8D57A2826F71AD500058F37 /* MonthlyAggregatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyAggregatorTests.swift; sourceTree = "<group>"; };
+		F8D57A2A26F7290700058F37 /* StubbedDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbedDatabase.swift; sourceTree = "<group>"; };
+		F8D57A2C26F73DBF00058F37 /* CategoryAggregatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAggregatorTests.swift; sourceTree = "<group>"; };
+		F8D57A3026F7488000058F37 /* DateFileterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFileterTests.swift; sourceTree = "<group>"; };
+		F8D57A3226F74DBE00058F37 /* CategoryFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterTests.swift; sourceTree = "<group>"; };
 		F8EEA487269AA0CF0067C5A4 /* AccountBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccountBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8EEA48A269AA0CF0067C5A4 /* AccountBookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBookApp.swift; sourceTree = "<group>"; };
 		F8EEA48C269AA0CF0067C5A4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -184,6 +194,24 @@
 			path = DetailView;
 			sourceTree = "<group>";
 		};
+		F8D57A2E26F7485800058F37 /* AggregatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8D57A2C26F73DBF00058F37 /* CategoryAggregatorTests.swift */,
+				F8D57A2826F71AD500058F37 /* MonthlyAggregatorTests.swift */,
+			);
+			path = AggregatorTests;
+			sourceTree = "<group>";
+		};
+		F8D57A2F26F7486900058F37 /* FileterTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8D57A3026F7488000058F37 /* DateFileterTests.swift */,
+				F8D57A3226F74DBE00058F37 /* CategoryFilterTests.swift */,
+			);
+			path = FileterTests;
+			sourceTree = "<group>";
+		};
 		F8EEA47E269AA0CF0067C5A4 = {
 			isa = PBXGroup;
 			children = (
@@ -236,8 +264,11 @@
 		F8EEA49C269AA0D10067C5A4 /* AccountBookTests */ = {
 			isa = PBXGroup;
 			children = (
+				F8D57A2E26F7485800058F37 /* AggregatorTests */,
+				F8D57A2F26F7486900058F37 /* FileterTests */,
 				F8EEA49D269AA0D10067C5A4 /* AccountBookTests.swift */,
 				F8EEA49F269AA0D10067C5A4 /* Info.plist */,
+				F8D57A2A26F7290700058F37 /* StubbedDatabase.swift */,
 			);
 			path = AccountBookTests;
 			sourceTree = "<group>";
@@ -508,14 +539,19 @@
 				F8EEA4D4269B2A470067C5A4 /* SorterProtocol.swift in Sources */,
 				F8EEA4DD269B32F10067C5A4 /* CategoryFilter.swift in Sources */,
 				F8EEA4BC269AA2950067C5A4 /* AccountDatabase.swift in Sources */,
+				F8D57A3326F74DBE00058F37 /* CategoryFilterTests.swift in Sources */,
 				F8948EFE26BDF2710000DA0F /* RecordCollectionProtocol.swift in Sources */,
 				F8EEA4C5269ABF170067C5A4 /* AccountCategoryProvider.swift in Sources */,
 				F8EEA4DA269B30620067C5A4 /* DateFilter.swift in Sources */,
+				F8D57A2D26F73DBF00058F37 /* CategoryAggregatorTests.swift in Sources */,
 				F8F17BC726ABD25F00F92186 /* AccountCategoryManager.swift in Sources */,
+				F8D57A2B26F7290700058F37 /* StubbedDatabase.swift in Sources */,
 				F8F17BC626ABCFCC00F92186 /* AccountItemModel.swift in Sources */,
 				F8EEA4CB269AF51D0067C5A4 /* RecordCollection.swift in Sources */,
 				F8EEA4BF269AA2FD0067C5A4 /* AccountRecord.swift in Sources */,
+				F8D57A3126F7488000058F37 /* DateFileterTests.swift in Sources */,
 				F8EEA49E269AA0D10067C5A4 /* AccountBookTests.swift in Sources */,
+				F8D57A2926F71AD500058F37 /* MonthlyAggregatorTests.swift in Sources */,
 				F87EC77D26C42248008E60CD /* CategoryAggregator.swift in Sources */,
 				F8F0B60F269DF9CD0016E648 /* BMTReader.swift in Sources */,
 				F8F17BCA26ABD2CD00F92186 /* HistoryItem.swift in Sources */,
