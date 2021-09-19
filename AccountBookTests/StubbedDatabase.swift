@@ -1,104 +1,14 @@
 //
-//  AccountDatabase.swift
-//  AccountBook
+//  StubbedDatabase.swift
+//  AccountBookTests
 //
-//  Created by Kohei KONISHI on 2021/07/11.
+//  Created by Kohei KONISHI on 2021/09/19.
 //
 
 import Foundation
 
-class AccountDatabase {
-    typealias RecordType = AccountRecord
-    
-    private var sourceURL: URL? = nil
-    private var table_: [RecordType]
-    
-    public init() {
-        table_ = []
-    }
-    
-    public init(from url: URL) throws {
-        let ioProxy = try IOTableProxy(url: url)
-        self.table_ = ioProxy.getTable()
-        self.sourceURL = url
-    }
-    
-    public init(fromBMT url: URL) throws {
-        if url.pathExtension != ".bmt" {
-            
-        }
-        
-        let decoder = JSONDecoder()
-        let data = try Data(contentsOf: url)
-        let bmtRecords = try decoder.decode([BMTRecord].self, from: data)
-        
-        self.table_ = .init()
-        for bmtRec in bmtRecords {
-            if let rec = bmtRec.toRecord() {
-                self.table_.append(rec)
-            }
-        }
-    }
-    
-    
-    public var numberOfRecords: Int { self.table_.count }
-    
-    public func setURL(url: URL) {
-        self.sourceURL = url
-    }
-    
-    internal func save() {
-        let proxy = IOTableProxy(base: self.table_)
-        
-        if let url = self.sourceURL {
-            print("Saved to \(url)")
-            try! proxy.save(to: url)
-        }
-    }
-    
-    
-    // MARK: Operating Database
-
-    public func add(_ record: RecordType) {
-        table_.append(record)
-        
-        NotificationCenter.default.post(name: .AccountDatabaseDidChange, object: nil)
-        self.save()
-    }
-    
-    public func remove(_ recordNo: Int) {
-        table_.remove(at: recordNo)
-        
-        NotificationCenter.default.post(name: .AccountDatabaseDidChange, object: nil)
-        self.save()
-    }
-    
-    public func replace(_ record: RecordType, to newRecord: RecordType) {
-        
-    }
-    
-    
-    // MARK: Record Getter
-    
-    public subscript(position: Int) -> RecordType {
-        get {
-            return self.table_[position]
-        }
-    }
-    
-    public func getRecords() -> RecordCollection {
-        RecordCollection(self)
-    }
-}
-
-
-extension Notification.Name {
-    static let AccountDatabaseDidChange = Notification.Name("AccountDBDidChange")
-}
-
-
 extension AccountDatabase {
-    static func mock() -> AccountDatabase {
+    static func stub() -> AccountDatabase {
         let cal = Calendar.current
         
         let recArray = [

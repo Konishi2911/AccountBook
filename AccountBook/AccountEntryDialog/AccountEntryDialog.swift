@@ -9,17 +9,22 @@ import SwiftUI
 
 struct AccountEntryDialog: View {
     @Binding var showingSelf: Bool
-    @StateObject private var model: AccountItemModel = .default
+    @ObservedObject private var model: AccountItemModel
     
     @State private var bool: Bool = false
     private let currencyFormatter = NumberFormatter()
     
-    init(isShowing: Binding<Bool>) {
+    private let db_: AccountDatabase
+    
+    init(isShowing: Binding<Bool>, ref: AccountDatabase) {
         self._showingSelf = isShowing
+        self.model = .default
         
         self.currencyFormatter.numberStyle = .currency
         self.currencyFormatter.currencyGroupingSeparator = ","
         self.currencyFormatter.isLenient = true
+        
+        self.db_ = ref
     }
     
     var body: some View {
@@ -56,6 +61,7 @@ struct AccountEntryDialog: View {
                 }
                 .keyboardShortcut(.cancelAction)
                 Button("Accept") {
+                    self.db_.add(self.model.toAccountRecord())
                     self.showingSelf = false
                 }
                 .keyboardShortcut(.defaultAction)
@@ -138,6 +144,6 @@ struct AccountEntryDialog_Previews: PreviewProvider {
     @State static private var bool: Bool = true
 
     static var previews: some View {
-        AccountEntryDialog(isShowing: $bool)
+        AccountEntryDialog(isShowing: $bool, ref: AccountDatabase.mock())
     }
 }

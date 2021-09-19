@@ -10,6 +10,7 @@ import Foundation
 class AccountItemModel: ObservableObject {
     typealias Direction = AccountCategory.AccountType
     
+    @Published var date: Date
     @Published var type: Direction {
         didSet { if self.type != oldValue { self.updateCategory() } }
     }
@@ -20,14 +21,17 @@ class AccountItemModel: ObservableObject {
     @Published var name: String
     @Published var amount: Int = 0
     @Published var pcs: Int
+    @Published var remarks: String
         
     required init(
+        date: Date,
         type: Direction,
         name: String,
         category: String? = nil,
         subCategory: String? = nil,
         amount: Int,
-        pcs: Int
+        pcs: Int,
+        remarks: String
     ) {
         let tmpCatName = category ??
             AccountCategoryManager(type: type).getChildCategoryNames().first!
@@ -35,12 +39,27 @@ class AccountItemModel: ObservableObject {
             AccountCategoryManager(type: type, nameSequence: [tmpCatName])?
             .getChildCategoryNames().first ?? ""
         
+        self.date = date
         self.type = type
         self.name = name
         self.categoryName = tmpCatName
         self.subCategoryName = tmpSubCatName
         self.amount = amount
         self.pcs = pcs
+        self.remarks = remarks
+    }
+    
+    convenience init(record: AccountRecord) {
+        self.init(
+            date: record.date,
+            type: record.category.accountType,
+            name: record.name,
+            category: record.category.categoryNameSequence.first,
+            subCategory: record.category.getCategoryName(depth: 1),
+            amount: Int(record.amounts),
+            pcs: Int(record.pcs),
+            remarks: record.remarks
+        )
     }
     
     var hasSubCategory: Bool {
@@ -61,6 +80,19 @@ class AccountItemModel: ObservableObject {
             .getChildCategoryNames()
     }
     
+    func toAccountRecord() -> AccountRecord {
+        return .init(
+            date: self.date,
+            category: AccountCategory(
+                type: self.type,
+                nameSequence: [self.categoryName, self.subCategoryName])!,
+            name: self.name,
+            pcs: UInt(self.pcs),
+            amounts: UInt(self.amount),
+            remarks: self.remarks
+        )
+    }
+    
     private func updateCategory() {
         self.categoryName = self.categoryList.first!
         print("Category Updated")
@@ -71,11 +103,13 @@ class AccountItemModel: ObservableObject {
     
     static var `default`: Self {
         .init(
+            date: Date(),
             type: .income,
             name: "",
             category: "Salary",
             amount: 0,
-            pcs: 1
+            pcs: 1,
+            remarks: ""
         )
     }
 }

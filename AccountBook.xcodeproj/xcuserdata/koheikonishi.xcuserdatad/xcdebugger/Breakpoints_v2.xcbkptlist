@@ -5,19 +5,15 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.RuntimeIssueBreakpoint">
          <BreakpointContent
-            uuid = "CF2E8C2E-AA36-48B6-8816-A3ABA7E3E066"
-            shouldBeEnabled = "Yes"
+            uuid = "DF1842FD-7BD7-4558-975B-BC059598156A"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AccountBookTests/AccountBookTests.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "testCategoryAggregator()"
-            landmarkType = "7">
+            breakpointStackSelectionBehavior = "1"
+            type = "8"
+            categories = "Metal Diagnostics">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

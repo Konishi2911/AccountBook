@@ -8,25 +8,23 @@
 import SwiftUI
 
 struct HistoryView: View {
-    let db: AccountDatabase
+    @State private var selected: UUID? = nil
+    @ObservedObject private var ref: HistoryItemSource
     
-    var body: some View {
-        let items = self.aggregateItems()
-        
-            List(0 ..< items.count) { i in
-                HistoryItemView(item: items[i])
-            }
+    
+    init (db: AccountDatabase) {
+        self.ref = .init(ref: db)
     }
     
-    func aggregateItems() -> [HistoryItem] {
-        var items: [HistoryItem] = []
-        for rec in self.db
-            .getRecords()
-            .sorted(by: DateSotrter(.ascending))
-            .getArray() {
-            items.append(.init(from: rec))
+    var body: some View {
+        List(selection: self.$selected) {
+            ForEach(self.ref.items) { item in
+                HistoryItemView(item: item)
+            }
+            .onDelete(perform: { index in
+                self.ref.removeRecord(index: index.first!)
+            })
         }
-        return items
     }
 }
 

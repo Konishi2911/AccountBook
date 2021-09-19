@@ -61,10 +61,19 @@ struct RecordCollection: RecordCollectionProtocol {
     
     // MARK: - Accessing Records
     
+    @available(*, deprecated)
     public func getArray() -> [AccountRecord] {
         var arr: [AccountRecord] = []
         for index in self.indexMap_ {
             arr.append(ref_[index])
+        }
+        return arr
+    }
+    
+    public func getRecords() -> [(Int, AccountRecord)] {
+        var arr: [(Int, AccountRecord)] = []
+        for index in self.indexMap_ {
+            arr.append((index, ref_[index]))
         }
         return arr
     }
