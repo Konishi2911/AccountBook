@@ -12,13 +12,21 @@ struct SidebarView: View {
     
     var body: some View {
         List {
-            NavigationLink(destination: OverviewView(db: self.db)){
-                Label("Overview", systemImage: "doc.text.magnifyingglass")
+            NavigationLink(destination: HighlightsView()){
+                Label("Highlights", systemImage: "lightbulb")
+                    .font(.title3)
+            }
+            NavigationLink(destination: BookView(db: .mock())){
+                Label("Book", systemImage: "text.book.closed")
+                    .font(.title3)
+            }
+            NavigationLink(destination: StatisticsView()){
+                Label("Statistics", systemImage: "chart.bar.xaxis")
                     .font(.title3)
             }
         }
         .toolbar {
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .automatic) {
                 Button(action: toggleSidebar) {
                     Image(systemName: "sidebar.left")
                 }
