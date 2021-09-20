@@ -95,9 +95,9 @@ struct OverviewView: View {
             fromTemplate: "MMM", options: 0, locale: nil
         )
         
-        let src = result.sorted { $0.key < $1.key}
+        let src = result.sorted { $0.key.lowerBound < $1.key.lowerBound}
         return .init(
-            labels: src.compactMap {$0.key}.map{ dateFormatter.string(from: $0.start) },
+            labels: src.compactMap {$0.key}.map{ dateFormatter.string(from: $0.lowerBound) },
             values: [Double](src.compactMap {Double($0.value)})
         )
     }
