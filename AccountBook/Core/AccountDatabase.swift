@@ -89,6 +89,15 @@ class AccountDatabase {
     public func getRecords() -> RecordCollection {
         RecordCollection(self)
     }
+    
+    
+    /// Returns a record that matches given id.
+    /// If no records matched with given id, it will return nil.
+    /// - Parameter id: The unique id for matching record.
+    /// - Returns: The matched record or nil.
+    public func fetch(id: UUID) -> AccountRecord? {
+        self.table_.first {$0.id == id}
+    }
 }
 
 

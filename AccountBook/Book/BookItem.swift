@@ -8,7 +8,7 @@
 import Foundation
 
 struct BookItem: Identifiable {
-    let id = UUID()
+    let id: UUID
     
     let date: Date
     let category: AccountCategory
@@ -17,6 +17,8 @@ struct BookItem: Identifiable {
     let remarks: String
     
     init(from record: AccountRecord) {
+        self.id = record.id
+        
         self.date = record.date
         self.category = record.category
         self.name = record.name
