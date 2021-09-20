@@ -15,7 +15,10 @@ struct DateFilter: FilterProtocol {
     }
     
     func filter(_ record: AccountRecord) -> AccountRecord? {
-        return self.range_.contains(record.date) ? record : nil
+        return
+            (self.range_.start <= record.date) && (record.date < self.range_.end) ?
+            record : nil
+        //return self.range_.contains(record.date) ? record : nil
     }
     
 }

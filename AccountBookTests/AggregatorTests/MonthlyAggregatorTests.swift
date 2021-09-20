@@ -14,9 +14,9 @@ class MonthlyAggregatorTests: XCTestCase {
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         self.aggregator = MonthlyAggregator(
-            duration: .init(
+            duration: DateInterval(
                 start: cal.date(from: DateComponents(year: 2020, month: 1, day: 1))!,
-                end: cal.date(from: DateComponents(year: 2021, month: 12, day: 31))!
+                end: cal.date(from: DateComponents(year: 2022, month: 1, day: 1))!
             )
         )
     }
@@ -36,27 +36,28 @@ class MonthlyAggregatorTests: XCTestCase {
     }
     
     func testSumAggregation() throws {
-        let agg = aggregator.aggregate(ref: AccountDatabase.stub().getRecords())
+        let recCollection = AccountDatabase.stub().getRecords()
+        let agg = aggregator.aggregate(ref: recCollection)
         let exact: [UInt] = [
             5000, 0, 0, 0, 0, 200, 0, 0, 0, 0, 0, 0,
             0, 0, 10000, 0, 2300, 3000, 0, 20510, 0, 4000, 0, 0
         ]
         
         XCTAssertEqual(
-            agg.summed{ $0.amounts }.sorted {$0.key.start < $1.key.start}.map{$1},
+            agg.summed{ $0.amounts }.sorted {$0.key.lowerBound < $1.key.lowerBound}.map{$1},
             exact
         )
     }
     
     func testAverageAggregation() throws {
-        let agg = aggregator.aggregate(ref: AccountDatabase.mock().getRecords())
+        let agg = aggregator.aggregate(ref: AccountDatabase.stub().getRecords())
         let exact: [Double] = [
             5000, 0, 0, 0, 0, 200, 0, 0, 0, 0, 0, 0,
             0, 0, 10000, 0, 1150, 3000, 0, 5127.5, 0, 4000, 0, 0
         ]
         
         XCTAssertEqual(
-            agg.averaged{ Double($0.amounts) }.sorted {$0.key.start < $1.key.start}.map{$1},
+            agg.averaged{ Double($0.amounts) }.sorted {$0.key.lowerBound < $1.key.lowerBound}.map{$1},
             exact
         )
     }

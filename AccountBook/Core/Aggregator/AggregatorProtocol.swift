@@ -67,7 +67,7 @@ struct AggregatedItems<L> where L: Hashable {
             for rec in pair.value {
                 sum += content(rec)
             }
-            itemDict[pair.key] = sum / T(self.records.count)
+            itemDict[pair.key] = sum / (pair.value.count != 0 ? T(pair.value.count) : 1)
         }
         return itemDict
     }

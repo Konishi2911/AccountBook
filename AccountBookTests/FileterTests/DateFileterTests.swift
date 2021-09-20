@@ -81,6 +81,7 @@ class DateFileterTests: XCTestCase {
             amounts: 10000,
             remarks: "None"
         )
+
         XCTAssertNil(self.filter.filter(record))
     }
 
