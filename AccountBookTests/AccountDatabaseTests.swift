@@ -22,6 +22,76 @@ class AccountDatabaseTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
+    func testRecordAddition() {
+        let db = AccountDatabase()
+        let rec = AccountRecord(
+            date: Date(),
+            category: AccountCategory(type: .income, nameSequence: ["Salary"])!,
+            name: "Name",
+            pcs: 1,
+            amounts: 1,
+            remarks: ""
+        )
+        
+        db.add(rec)
+        XCTAssertEqual(db.numberOfRecords, 1)
+    }
+    
+    func testRecordDeletion() {
+        let db = AccountDatabase()
+        let rec1 = AccountRecord(
+            date: Date(),
+            category: AccountCategory(type: .income, nameSequence: ["Salary"])!,
+            name: "Name",
+            pcs: 1,
+            amounts: 1,
+            remarks: ""
+        )
+        let rec2 = AccountRecord(
+            date: Date(),
+            category: AccountCategory(type: .income, nameSequence: ["Salary"])!,
+            name: "Name",
+            pcs: 1,
+            amounts: 1,
+            remarks: ""
+        )
+
+        
+        db.add(rec1)
+        db.add(rec2)
+        db.remove(recordID: rec2.id)
+        
+        XCTAssertEqual(db.numberOfRecords, 1)
+        XCTAssertEqual(db.getRecords().first!.id, rec1.id)
+    }
+    
+    func testRecordReplacement() {
+        let db = AccountDatabase()
+        let rec1 = AccountRecord(
+            date: Date(),
+            category: AccountCategory(type: .income, nameSequence: ["Salary"])!,
+            name: "Name",
+            pcs: 1,
+            amounts: 1,
+            remarks: ""
+        )
+        let rec2 = AccountRecord(
+            date: Date(),
+            category: AccountCategory(type: .income, nameSequence: ["Salary"])!,
+            name: "Name",
+            pcs: 1,
+            amounts: 1,
+            remarks: ""
+        )
+
+        
+        db.add(rec1)
+        db.replace(recordID: rec1.id, newRecord: rec2)
+        
+        XCTAssertEqual(db.numberOfRecords, 1)
+        XCTAssertEqual(db.getRecords().first!.id, rec2.id)
+    }
+    
     func testRecordFetching() {
         let db = AccountDatabase()
         let rec = AccountRecord(

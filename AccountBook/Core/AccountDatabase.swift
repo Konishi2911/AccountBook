@@ -66,6 +66,7 @@ class AccountDatabase {
         self.save()
     }
     
+    @available(*, deprecated)
     public func remove(_ recordNo: Int) {
         table_.remove(at: recordNo)
         
@@ -73,8 +74,19 @@ class AccountDatabase {
         self.save()
     }
     
-    public func replace(_ record: RecordType, to newRecord: RecordType) {
+    public func remove(recordID: UUID) {
+        table_.removeAll { $0.id == recordID }
         
+        NotificationCenter.default.post(name: .AccountDatabaseDidChange, object: nil)
+        self.save()
+    }
+    
+    public func replace(recordID: UUID, newRecord: RecordType) {
+        table_.removeAll { $0.id == recordID }
+        table_.append(newRecord)
+        
+        NotificationCenter.default.post(name: .AccountDatabaseDidChange, object: nil)
+        self.save()
     }
     
     
