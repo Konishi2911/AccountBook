@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct BookView: View {
-    let db_: AccountDatabase
+    @ObservedObject private var model_: BookItemModel
     @State private var searchStr_: String = ""
     
     init(db: AccountDatabase) {
-        self.db_ = db
+        self.model_ = .init(ref: db)
     }
     var body: some View {
         NavigationView {
-            List {
-                ForEach (self.source_()) { item in
+            List() {
+                ForEach (self.model_.items) { item in
                     NavigationLink(destination: self.accountDetailView_(recID: item.id)) {
                         BookItemView(item: item)
                     }
@@ -28,15 +28,10 @@ struct BookView: View {
     
     func accountDetailView_(recID: UUID) -> some View {
         VStack {
-            AccountDetailView(ref: self.db_)
+            AccountDetailView(recordID: recID, ref: self.model_.db)
                 .padding([.trailing])
             Spacer()
         }
-    }
-    
-    private func source_() -> [BookItem] {
-        let records = self.db_.getRecords()
-        return records.map { BookItem(from: $0) }
     }
 }
 

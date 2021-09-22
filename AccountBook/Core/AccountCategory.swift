@@ -50,7 +50,8 @@ struct AccountCategory: Equatable, Hashable {
         return true
     }
     
-    public func getCategoryName(depth: UInt = 0) -> String {
+    public func getCategoryName(depth: UInt = 0) -> String? {
+        guard self.categoryNameSequence.count > depth else { return nil }
         return self.categoryNameSequence[Int(depth)]
     }
 }
