@@ -64,7 +64,11 @@ class AccountDatabase {
         
         NotificationCenter.default.post(
             name: .AccountDatabaseDidChange,
-            object: AccountDatabaseChangeInfo(prevRecord: nil, newRecord: record)
+            object: AccountDatabaseChangeInfo(
+                changeMode: .added,
+                prevRecord: nil,
+                newRecord: record
+            )
         )
         self.save()
     }
@@ -84,19 +88,27 @@ class AccountDatabase {
         
         NotificationCenter.default.post(
             name: .AccountDatabaseDidChange,
-            object: AccountDatabaseChangeInfo(prevRecord: rec, newRecord: nil)
+            object: AccountDatabaseChangeInfo(
+                changeMode: .removed,
+                prevRecord: rec,
+                newRecord: nil
+            )
         )
         self.save()
     }
     
     public func replace(recordID: UUID, newRecord: RecordType) {
-        let rec = table_.first {$0.id == recordID }
+        guard let rec = table_.first (where: { $0.id == recordID }) else { return }
         table_.removeAll { $0.id == recordID }
         table_.append(newRecord)
         
         NotificationCenter.default.post(
             name: .AccountDatabaseDidChange,
-            object: AccountDatabaseChangeInfo(prevRecord: rec, newRecord: newRecord)
+            object: AccountDatabaseChangeInfo(
+                changeMode: .replaced,
+                prevRecord: rec,
+                newRecord: newRecord
+            )
         )
         self.save()
     }

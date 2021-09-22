@@ -8,6 +8,13 @@
 import Foundation
 
 struct AccountDatabaseChangeInfo {
+    enum ChangeMode {
+        case added
+        case removed
+        case replaced
+    }
+    
+    let changeMode: ChangeMode
     let prevRecord: AccountRecord?
     let newRecord: AccountRecord?
 }
