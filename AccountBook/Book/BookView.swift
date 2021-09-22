@@ -16,11 +16,22 @@ struct BookView: View {
     }
     var body: some View {
         NavigationView {
-            List() {
+            List {
                 ForEach (self.model_.items) { item in
-                    NavigationLink(destination: self.accountDetailView_(recID: item.id)) {
+                    NavigationLink(
+                        destination: self.accountDetailView_(recID: item.id),
+                        tag: item.id,
+                        selection: self.$model_.selected
+                    ) {
                         BookItemView(item: item)
                     }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Button(action: { self.model_.createNewRecord() }, label: {
+                        Image(systemName: "plus")
+                    })
                 }
             }
         }
