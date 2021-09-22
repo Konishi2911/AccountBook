@@ -16,7 +16,7 @@ struct SidebarView: View {
                 Label("Highlights", systemImage: "lightbulb")
                     .font(.title3)
             }
-            NavigationLink(destination: BookView(db: .mock())){
+            NavigationLink(destination: BookView(db: db)){
                 Label("Book", systemImage: "text.book.closed")
                     .font(.title3)
             }
