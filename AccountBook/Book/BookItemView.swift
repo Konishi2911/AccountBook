@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookItemView: View {
-    let item: BookItem
+    @ObservedObject var item: BookItem
     private let currencyFormatter: NumberFormatter
     private let dateFormatter: DateFormatter
     

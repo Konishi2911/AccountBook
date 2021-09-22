@@ -8,25 +8,29 @@
 import SwiftUI
 
 struct AccountDetailView: View {
-    @ObservedObject private var model: AccountItemModel
+    @ObservedObject private var model: AccountDetailModel
     @State private var bool: Bool = false
     private let currencyFormatter = NumberFormatter()
     
-    private let db_: AccountDatabase
-    
     init(ref: AccountDatabase) {
-        self.model = .default
-        
+        self.currencyFormatter.numberStyle = .currency
+        self.currencyFormatter.currencyGroupingSeparator = ","
+        self.currencyFormatter.isLenient = true
+
+        self.model = .init(ref: ref)
+    }
+    
+    init(recordID id: UUID, ref: AccountDatabase) {
         self.currencyFormatter.numberStyle = .currency
         self.currencyFormatter.currencyGroupingSeparator = ","
         self.currencyFormatter.isLenient = true
         
-        self.db_ = ref
+        self.model = .init(recordID: id, ref: ref)
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("New Item")
+            Text(model.isNew ? "New Item" : "Edit")
                 .font(.title)
                 .bold()
             HStack {
@@ -41,7 +45,7 @@ struct AccountDetailView: View {
                 Spacer()
                 DatePicker(
                     "",
-                    selection: .constant(Date()),
+                    selection: $model.date,
                     displayedComponents: .date
                 )
                 .scaledToFit()
