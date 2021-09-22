@@ -62,7 +62,10 @@ class AccountDatabase {
     public func add(_ record: RecordType) {
         table_.append(record)
         
-        NotificationCenter.default.post(name: .AccountDatabaseDidChange, object: nil)
+        NotificationCenter.default.post(
+            name: .AccountDatabaseDidChange,
+            object: AccountDatabaseChangeInfo(prevRecord: nil, newRecord: record)
+        )
         self.save()
     }
     
@@ -70,22 +73,31 @@ class AccountDatabase {
     public func remove(_ recordNo: Int) {
         table_.remove(at: recordNo)
         
-        NotificationCenter.default.post(name: .AccountDatabaseDidChange, object: nil)
+        NotificationCenter.default.post(
+            name: .AccountDatabaseDidChange, object: nil)
         self.save()
     }
     
     public func remove(recordID: UUID) {
+        let rec = table_.first {$0.id == recordID }
         table_.removeAll { $0.id == recordID }
         
-        NotificationCenter.default.post(name: .AccountDatabaseDidChange, object: nil)
+        NotificationCenter.default.post(
+            name: .AccountDatabaseDidChange,
+            object: AccountDatabaseChangeInfo(prevRecord: rec, newRecord: nil)
+        )
         self.save()
     }
     
     public func replace(recordID: UUID, newRecord: RecordType) {
+        let rec = table_.first {$0.id == recordID }
         table_.removeAll { $0.id == recordID }
         table_.append(newRecord)
         
-        NotificationCenter.default.post(name: .AccountDatabaseDidChange, object: nil)
+        NotificationCenter.default.post(
+            name: .AccountDatabaseDidChange,
+            object: AccountDatabaseChangeInfo(prevRecord: rec, newRecord: newRecord)
+        )
         self.save()
     }
     
