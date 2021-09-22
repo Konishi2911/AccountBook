@@ -36,12 +36,12 @@ class BookItemModel: ObservableObject {
         }
     }
     
-    func createNewRecord() {
+    func createNewRecord() -> UUID {
         let rec = AccountRecord (
             date: Date(),
             category: AccountCategory(type: .income, nameSequence: ["Salary"])!,
             name: "",
-            pcs: 0,
+            pcs: 1,
             amounts: 0,
             remarks: ""
         )
@@ -49,6 +49,7 @@ class BookItemModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.selected = rec.id
         }
+        return rec.id
     }
     
     func deleteRecord(_ indexSet: IndexSet) {

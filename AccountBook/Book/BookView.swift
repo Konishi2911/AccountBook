@@ -16,25 +16,35 @@ struct BookView: View {
     }
     var body: some View {
         NavigationView {
-            List {
-                ForEach (self.model_.items) { item in
-                    NavigationLink(
-                        destination: self.accountDetailView_(recID: item.id),
-                        tag: item.id,
-                        selection: self.$model_.selected
-                    ) {
-                        BookItemView(item: item)
+            ScrollViewReader { proxy in
+                List {
+                    ForEach (self.model_.items) { item in
+                        NavigationLink(
+                            destination: self.accountDetailView_(recID: item.id),
+                            tag: item.id,
+                            selection: self.$model_.selected
+                        ) {
+                            BookItemView(item: item)
+                        }
+                        .id(item.id)
                     }
-                }
-                .onDelete(perform: { indexSet in
-                    self.model_.deleteRecord(indexSet)
-                })
-            }
-            .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    Button(action: { self.model_.createNewRecord() }, label: {
-                        Image(systemName: "plus")
+                    .onDelete(perform: { indexSet in
+                        self.model_.deleteRecord(indexSet)
                     })
+                }
+                .toolbar {
+                    ToolbarItem(placement: .automatic) {
+                        Button(action: {
+                            let id = self.model_.createNewRecord()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                                withAnimation {
+                                    proxy.scrollTo(id, anchor: .center)
+                                }
+                            }
+                        }, label: {
+                            Image(systemName: "plus")
+                        })
+                    }
                 }
             }
             Text("No Items Selected")
