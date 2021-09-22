@@ -30,6 +30,10 @@ class BookItemModel: ObservableObject {
             let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
             self.items = rec.map{ BookItem(id: $0.id, ref: self.db) }
         }
+        else if info.changeMode == .removed {
+            let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
+            self.items = rec.map{ BookItem(id: $0.id, ref: self.db) }
+        }
     }
     
     func createNewRecord() {
@@ -44,6 +48,15 @@ class BookItemModel: ObservableObject {
         self.db.add(rec)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.selected = rec.id
+        }
+    }
+    
+    func deleteRecord(_ indexSet: IndexSet) {
+        for i in indexSet {
+            self.db.remove(recordID: items[i].id)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            self.selected = nil
         }
     }
 }

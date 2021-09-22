@@ -26,6 +26,9 @@ struct BookView: View {
                         BookItemView(item: item)
                     }
                 }
+                .onDelete(perform: { indexSet in
+                    self.model_.deleteRecord(indexSet)
+                })
             }
             .toolbar {
                 ToolbarItem(placement: .automatic) {
@@ -34,6 +37,9 @@ struct BookView: View {
                     })
                 }
             }
+            Text("No Items Selected")
+                .font(.title)
+                .foregroundColor(.gray)
         }
     }
     
