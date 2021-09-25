@@ -22,7 +22,6 @@ class AccountDetailModel: ObservableObject {
     @Published var remarks: String { didSet{self.fieldsDidUpdate()} }
     
     let isNew: Bool
-    private var internalUpdating_: Bool = false
     
     /// Initializes Account Detail Model as new item.
     /// - Parameter ref: Database to add newly created item.
@@ -111,11 +110,6 @@ class AccountDetailModel: ObservableObject {
     }
     
     private func categoryDidUpdate() {
-        guard self.internalUpdating_ else { return }
-        self.internalUpdating_ = true
-        
         self.subCategoryName = AccountCategoryManager(type: self.type, nameSequence: [self.categoryName])!.getChildCategoryNames().first ?? ""
-        
-        self.internalUpdating_ = false
     }
 }
