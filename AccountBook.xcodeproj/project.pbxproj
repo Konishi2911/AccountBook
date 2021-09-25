@@ -39,6 +39,9 @@
 		F8D57A3926F86EE300058F37 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A3826F86EE300058F37 /* StatisticsView.swift */; };
 		F8D57A3C26F8763700058F37 /* BookItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A3B26F8763700058F37 /* BookItemView.swift */; };
 		F8D57A3E26F8769200058F37 /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A3D26F8769200058F37 /* BookItem.swift */; };
+		F8EBB2B426FB941300978C82 /* AccountDatabaseChangeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F821484B26FAE3E10038448C /* AccountDatabaseChangeInfo.swift */; };
+		F8EBB2B526FB941400978C82 /* AccountDatabaseChangeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F821484B26FAE3E10038448C /* AccountDatabaseChangeInfo.swift */; };
+		F8EBB2B826FBED4500978C82 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EBB2B726FBED4500978C82 /* SearchBar.swift */; };
 		F8EEA48B269AA0CF0067C5A4 /* AccountBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEA48A269AA0CF0067C5A4 /* AccountBookApp.swift */; };
 		F8EEA48D269AA0CF0067C5A4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEA48C269AA0CF0067C5A4 /* ContentView.swift */; };
 		F8EEA48F269AA0D10067C5A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8EEA48E269AA0D10067C5A4 /* Assets.xcassets */; };
@@ -134,6 +137,7 @@
 		F8D57A3826F86EE300058F37 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		F8D57A3B26F8763700058F37 /* BookItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookItemView.swift; sourceTree = "<group>"; };
 		F8D57A3D26F8769200058F37 /* BookItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
+		F8EBB2B726FBED4500978C82 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		F8EEA487269AA0CF0067C5A4 /* AccountBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccountBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8EEA48A269AA0CF0067C5A4 /* AccountBookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBookApp.swift; sourceTree = "<group>"; };
 		F8EEA48C269AA0CF0067C5A4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -256,6 +260,14 @@
 			path = Book;
 			sourceTree = "<group>";
 		};
+		F8EBB2B626FBED0B00978C82 /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				F8EBB2B726FBED4500978C82 /* SearchBar.swift */,
+			);
+			path = SearchBar;
+			sourceTree = "<group>";
+		};
 		F8EEA47E269AA0CF0067C5A4 = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +307,7 @@
 				F8EEA494269AA0D10067C5A4 /* AccountBook.entitlements */,
 				F8EEA490269AA0D10067C5A4 /* Preview Content */,
 				F8D57A3426F86E9000058F37 /* HighlightsView.swift */,
+				F8EBB2B626FBED0B00978C82 /* SearchBar */,
 				F862CD5526F8E86100155FA8 /* AccountDetail */,
 				F8D57A3A26F8762000058F37 /* Book */,
 			);
@@ -565,6 +578,7 @@
 				F8F17BBE26A0ED1100F92186 /* BarChartView.swift in Sources */,
 				F8EEA48D269AA0CF0067C5A4 /* ContentView.swift in Sources */,
 				F8EEA4BE269AA2FD0067C5A4 /* AccountRecord.swift in Sources */,
+				F8EBB2B826FBED4500978C82 /* SearchBar.swift in Sources */,
 				F8EEA4DF269B3B7A0067C5A4 /* DateSorter.swift in Sources */,
 				F8EEA4C4269ABF170067C5A4 /* AccountCategoryProvider.swift in Sources */,
 				F8EEA4CA269AF51D0067C5A4 /* RecordCollection.swift in Sources */,
@@ -601,6 +615,7 @@
 				F8EEA4BC269AA2950067C5A4 /* AccountDatabase.swift in Sources */,
 				F8D57A3326F74DBE00058F37 /* CategoryFilterTests.swift in Sources */,
 				F8948EFE26BDF2710000DA0F /* RecordCollectionProtocol.swift in Sources */,
+				F8EBB2B526FB941400978C82 /* AccountDatabaseChangeInfo.swift in Sources */,
 				F8EEA4C5269ABF170067C5A4 /* AccountCategoryProvider.swift in Sources */,
 				F8EEA4DA269B30620067C5A4 /* DateFilter.swift in Sources */,
 				F8D57A2D26F73DBF00058F37 /* CategoryAggregatorTests.swift in Sources */,
@@ -639,6 +654,7 @@
 				F8F17BCC26ABD32E00F92186 /* SidebarView.swift in Sources */,
 				F8F17BCF26ABDB8000F92186 /* AccountCategory.swift in Sources */,
 				F8F0B60B269D05980016E648 /* HistoryView.swift in Sources */,
+				F8EBB2B426FB941300978C82 /* AccountDatabaseChangeInfo.swift in Sources */,
 				F8F17BD226ABDB9800F92186 /* RecordCollection.swift in Sources */,
 				F8F17BCD26ABD7A700F92186 /* HistoryItem.swift in Sources */,
 				F8FD2227269CA7C700CFA2F0 /* OverviewView.swift in Sources */,

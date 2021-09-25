@@ -41,9 +41,6 @@ struct BookItemView: View {
                         .font(.caption)
                         .foregroundColor(.gray)
                         .fontWeight(.bold)
-                    Text(self.item.name)
-                        .font(.caption)
-                        .foregroundColor(.gray)
                 }
                 Text(
                     self.currencyFormatter.string(
