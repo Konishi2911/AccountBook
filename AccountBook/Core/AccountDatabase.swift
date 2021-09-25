@@ -62,19 +62,55 @@ class AccountDatabase {
     public func add(_ record: RecordType) {
         table_.append(record)
         
-        NotificationCenter.default.post(name: .AccountDatabaseDidChange, object: nil)
+        NotificationCenter.default.post(
+            name: .AccountDatabaseDidChange,
+            object: AccountDatabaseChangeInfo(
+                changeMode: .added,
+                prevRecord: nil,
+                newRecord: record
+            )
+        )
         self.save()
     }
     
+    @available(*, deprecated)
     public func remove(_ recordNo: Int) {
         table_.remove(at: recordNo)
         
-        NotificationCenter.default.post(name: .AccountDatabaseDidChange, object: nil)
+        NotificationCenter.default.post(
+            name: .AccountDatabaseDidChange, object: nil)
         self.save()
     }
     
-    public func replace(_ record: RecordType, to newRecord: RecordType) {
+    public func remove(recordID: UUID) {
+        let rec = table_.first {$0.id == recordID }
+        table_.removeAll { $0.id == recordID }
         
+        NotificationCenter.default.post(
+            name: .AccountDatabaseDidChange,
+            object: AccountDatabaseChangeInfo(
+                changeMode: .removed,
+                prevRecord: rec,
+                newRecord: nil
+            )
+        )
+        self.save()
+    }
+    
+    public func replace(recordID: UUID, newRecord: RecordType) {
+        guard let rec = table_.first (where: { $0.id == recordID }) else { return }
+        table_.removeAll { $0.id == recordID }
+        table_.append(newRecord)
+        
+        NotificationCenter.default.post(
+            name: .AccountDatabaseDidChange,
+            object: AccountDatabaseChangeInfo(
+                changeMode: .replaced,
+                prevRecord: rec,
+                newRecord: newRecord
+            )
+        )
+        self.save()
     }
     
     
@@ -88,6 +124,15 @@ class AccountDatabase {
     
     public func getRecords() -> RecordCollection {
         RecordCollection(self)
+    }
+    
+    
+    /// Returns a record that matches given id.
+    /// If no records matched with given id, it will return nil.
+    /// - Parameter id: The unique id for matching record.
+    /// - Returns: The matched record or nil.
+    public func fetch(id: UUID) -> AccountRecord? {
+        self.table_.first {$0.id == id}
     }
 }
 

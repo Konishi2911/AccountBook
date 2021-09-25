@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct AccountRecord: Equatable {
-    public let date: Date;
+struct AccountRecord: Equatable, Identifiable {
+    public let id: UUID
+    
+    public let date: Date
     public let category: AccountCategory
     public let name: String
     public let amounts: UInt
@@ -16,6 +18,8 @@ struct AccountRecord: Equatable {
     public let remarks: String
     
     public init(date: Date, category: AccountCategory, name: String, pcs: UInt, amounts: UInt, remarks: String){
+        self.id = UUID()
+        
         self.date = date
         self.category = category
         self.name = name

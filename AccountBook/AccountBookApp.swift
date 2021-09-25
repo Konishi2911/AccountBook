@@ -14,6 +14,8 @@ struct AccountBookApp: App {
             let db = loadOldDB() ?? AccountDatabase.mock()
             ContentView(db: db)
         }
+        .windowStyle(TitleBarWindowStyle())
+        .windowToolbarStyle(DefaultWindowToolbarStyle())
     }
     
     func loadOldDB() -> AccountDatabase? {                
