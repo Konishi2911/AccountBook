@@ -75,7 +75,7 @@ extension AccountDatabase {
                 category: AccountCategory(type: .outlay, nameSequence:
                                             ["Food", "Groceries"]
                 )!,
-                name: "",
+                name: "Coockie",
                 pcs: 1,
                 amounts: 20000,
                 remarks: "None"

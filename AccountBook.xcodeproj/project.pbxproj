@@ -22,6 +22,10 @@
 		F87C2B7326C89C2700405351 /* IOTableProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87C2B7126C6C8D800405351 /* IOTableProxy.swift */; };
 		F87EC77C26C1DDDC008E60CD /* CategoryAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */; };
 		F87EC77D26C42248008E60CD /* CategoryAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */; };
+		F88B7E0C26FED7DE00DA3AA9 /* NameFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B7E0B26FED7DE00DA3AA9 /* NameFilter.swift */; };
+		F88B7E0E26FED92A00DA3AA9 /* NameFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B7E0D26FED92A00DA3AA9 /* NameFilterTests.swift */; };
+		F88B7E0F26FEDD0400DA3AA9 /* NameFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B7E0B26FED7DE00DA3AA9 /* NameFilter.swift */; };
+		F88B7E1126FEFF7700DA3AA9 /* AccountDatabaseChangeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F821484B26FAE3E10038448C /* AccountDatabaseChangeInfo.swift */; };
 		F8948EFB26BB4E780000DA0F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFA26BB4E780000DA0F /* DetailView.swift */; };
 		F8948EFD26BCA0780000DA0F /* RecordCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */; };
 		F8948EFE26BDF2710000DA0F /* RecordCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */; };
@@ -116,6 +120,8 @@
 		F86C464E26AF020800AB8CFD /* AggregatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatorProtocol.swift; sourceTree = "<group>"; };
 		F87C2B7126C6C8D800405351 /* IOTableProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOTableProxy.swift; sourceTree = "<group>"; };
 		F87EC77B26C1DDDC008E60CD /* CategoryAggregator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAggregator.swift; sourceTree = "<group>"; };
+		F88B7E0B26FED7DE00DA3AA9 /* NameFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameFilter.swift; sourceTree = "<group>"; };
+		F88B7E0D26FED92A00DA3AA9 /* NameFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameFilterTests.swift; sourceTree = "<group>"; };
 		F8948EFA26BB4E780000DA0F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCollectionProtocol.swift; sourceTree = "<group>"; };
 		F8D57A2826F71AD500058F37 /* MonthlyAggregatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyAggregatorTests.swift; sourceTree = "<group>"; };
@@ -235,6 +241,7 @@
 			children = (
 				F8D57A3026F7488000058F37 /* DateFileterTests.swift */,
 				F8D57A3226F74DBE00058F37 /* CategoryFilterTests.swift */,
+				F88B7E0D26FED92A00DA3AA9 /* NameFilterTests.swift */,
 			);
 			path = FileterTests;
 			sourceTree = "<group>";
@@ -350,6 +357,7 @@
 				F8EEA4CC269B14DD0067C5A4 /* FilterProtocol.swift */,
 				F8EEA4D8269B30620067C5A4 /* DateFilter.swift */,
 				F8EEA4DB269B32F10067C5A4 /* CategoryFilter.swift */,
+				F88B7E0B26FED7DE00DA3AA9 /* NameFilter.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -564,6 +572,7 @@
 				F862CD5726F8E87C00155FA8 /* AccountDetailView.swift in Sources */,
 				F8F17BC126A8FC3000F92186 /* AccountEntryDialog.swift in Sources */,
 				F862CD5D26F953BB00155FA8 /* AccountDetailModel.swift in Sources */,
+				F88B7E0C26FED7DE00DA3AA9 /* NameFilter.swift in Sources */,
 				F820AE7026BF679E00DF0B6E /* StackChartView.swift in Sources */,
 				F8D57A3C26F8763700058F37 /* BookItemView.swift in Sources */,
 				F8EEA48B269AA0CF0067C5A4 /* AccountBookApp.swift in Sources */,
@@ -596,6 +605,7 @@
 				F8EEA4DA269B30620067C5A4 /* DateFilter.swift in Sources */,
 				F8D57A2D26F73DBF00058F37 /* CategoryAggregatorTests.swift in Sources */,
 				F8F17BC726ABD25F00F92186 /* AccountCategoryManager.swift in Sources */,
+				F88B7E0F26FEDD0400DA3AA9 /* NameFilter.swift in Sources */,
 				F8D57A2B26F7290700058F37 /* StubbedDatabase.swift in Sources */,
 				F8F17BC626ABCFCC00F92186 /* AccountItemModel.swift in Sources */,
 				F8EEA4CB269AF51D0067C5A4 /* RecordCollection.swift in Sources */,
@@ -611,7 +621,9 @@
 				F8EEA4CE269B14DD0067C5A4 /* FilterProtocol.swift in Sources */,
 				F86C465026AF020800AB8CFD /* AggregatorProtocol.swift in Sources */,
 				F862CD5926F8F08E00155FA8 /* AccountDatabaseTests.swift in Sources */,
+				F88B7E1126FEFF7700DA3AA9 /* AccountDatabaseChangeInfo.swift in Sources */,
 				F87C2B7326C89C2700405351 /* IOTableProxy.swift in Sources */,
+				F88B7E0E26FED92A00DA3AA9 /* NameFilterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
