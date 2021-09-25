@@ -10,6 +10,7 @@ import SwiftUI
 struct BookView: View {
     @ObservedObject private var model_: BookItemModel
     @State private var searchStr_: String = ""
+    @State private var isShowingFilterView: Bool = false
     
     init(db: AccountDatabase) {
         self.model_ = .init(ref: db)
@@ -32,7 +33,14 @@ struct BookView: View {
                         self.model_.deleteRecord(indexSet)
                     })
                 }
+                .frame(idealWidth: 250)
                 .toolbar {
+                    ToolbarItem(placement: .automatic) {
+                        HStack {
+                            SearchBar(text: self.$searchStr_)
+                                .frame(minWidth: 100, idealWidth: 200, maxWidth: .infinity)
+                        }
+                    }
                     ToolbarItem(placement: .automatic) {
                         Button(action: {
                             let id = self.model_.createNewRecord()
@@ -51,6 +59,8 @@ struct BookView: View {
                 .font(.title)
                 .foregroundColor(.gray)
         }
+        .navigationTitle("History")
+        .navigationSubtitle(self.model_.items.count.description + " records")
     }
     
     func accountDetailView_(recID: UUID) -> some View {
