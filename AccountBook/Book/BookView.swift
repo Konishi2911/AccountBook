@@ -37,18 +37,13 @@ struct BookView: View {
                 .toolbar {
                     ToolbarItem(placement: .automatic) {
                         HStack {
-                            SearchBar(text: self.$searchStr_)
+                            SearchBar(text: self.$model_.filteringText)
                                 .frame(minWidth: 100, idealWidth: 200, maxWidth: .infinity)
                         }
                     }
                     ToolbarItem(placement: .automatic) {
                         Button(action: {
-                            let id = self.model_.createNewRecord()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                                withAnimation {
-                                    proxy.scrollTo(id, anchor: .center)
-                                }
-                            }
+                            self.createNewItem_(proxy)
                         }, label: {
                             Image(systemName: "plus")
                         })
@@ -68,6 +63,15 @@ struct BookView: View {
             AccountDetailView(recordID: recID, ref: self.model_.db)
                 .padding([.trailing])
             Spacer()
+        }
+    }
+    
+    private func createNewItem_(_ proxy: ScrollViewProxy) {
+        let id = self.model_.createNewRecord()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            withAnimation {
+                proxy.scrollTo(id, anchor: .center)
+            }
         }
     }
 }

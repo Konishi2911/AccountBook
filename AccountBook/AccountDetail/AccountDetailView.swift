@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AccountDetailView: View {
     @ObservedObject private var model: AccountDetailModel
-    @State private var bool: Bool = false
     private let currencyFormatter = NumberFormatter()
     
     init(ref: AccountDatabase) {
@@ -100,16 +99,6 @@ struct AccountDetailView: View {
                     .foregroundColor(.gray)
                 TextField("Enter the name", text: $model.name)
                     .textFieldStyle(PlainTextFieldStyle())
-                Button(action: { self.bool = !self.bool }) {
-                    Image(systemName: "8.square")
-                        .foregroundColor( self.bool ? .blue : .black )
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                Button(action: { self.bool = !self.bool }) {
-                    Image(systemName: "10.square")
-                        .foregroundColor( self.bool ? .blue : .black )
-                }
-                .buttonStyle(BorderlessButtonStyle())
             }
             HStack {
                 Text("Amount")
@@ -117,6 +106,18 @@ struct AccountDetailView: View {
                     .foregroundColor(.gray)
                 TextField("", value: $model.amount, formatter: self.currencyFormatter)
                     .textFieldStyle(PlainTextFieldStyle())
+                Button(action: { self.setTaxRate(0.08) }) {
+                    Image(systemName: "8.square")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                }
+                .buttonStyle(BorderlessButtonStyle())
+                Button(action: { self.setTaxRate(0.1) }) {
+                    Image(systemName: "10.square")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                }
+                .buttonStyle(BorderlessButtonStyle())
             }
             Stepper(value: $model.pcs, in: 1...100) {
                 Text("pcs")
@@ -126,6 +127,10 @@ struct AccountDetailView: View {
                     .textFieldStyle(PlainTextFieldStyle())
             }
         }
+    }
+    
+    private func setTaxRate(_ rate: Double) {
+        self.model.taxRate = rate
     }
 }
 

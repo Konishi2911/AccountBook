@@ -6,15 +6,23 @@
 //
 
 import Foundation
+import Combine
 
 class BookItemModel: ObservableObject {
     let db: AccountDatabase
-    @Published var items: [BookItem]
-    @Published var selected: UUID?
+    var items: [BookItem]
+    
+    @Published var selected: UUID? {
+        didSet { print(selected) }
+    }
+    @Published var filteringText: String = "" {
+        didSet { self.filterRecord() }
+    }
         
     init(ref: AccountDatabase) {
         self.db = ref
-        let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
+        let rec = self.db.getRecords()
+            .sorted(by: DateSotrter(.ascending))
         self.items = rec.map{ BookItem(id: $0.id, ref: ref) }
         
         NotificationCenter.default.addObserver(
@@ -25,16 +33,31 @@ class BookItemModel: ObservableObject {
         
     @objc
     func databaseDidUpdate(notification: Notification) {
-        guard let info = notification.object as? AccountDatabaseChangeInfo else { return }
-        if info.changeMode == .added {
-            let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
-            self.items = rec.map{ BookItem(id: $0.id, ref: self.db) }
-        }
-        else if info.changeMode == .removed {
-            let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
-            self.items = rec.map{ BookItem(id: $0.id, ref: self.db) }
+        DispatchQueue.main.async {
+            guard let info = notification.object as? AccountDatabaseChangeInfo else { return }
+            if info.changeMode == .added {
+                let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
+                self.items = rec.map{ BookItem(id: $0.id, ref: self.db) }
+                self.selected = info.newRecord?.id
+            }
+            else if info.changeMode == .removed {
+                let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
+                self.items = rec.map{ BookItem(id: $0.id, ref: self.db) }
+            }
+            /*
+            else if info.changeMode == .replaced {
+                let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
+                
+                self.items = rec.map{ BookItem(id: $0.id, ref: self.db) }
+                self.selected = info.prevRecord?.id
+                
+                print("new: \(info.newRecord?.id.description)")
+                print("old: \(info.prevRecord?.id.description)")
+            }
+             */
         }
     }
+    
     
     func createNewRecord() -> UUID {
         let rec = AccountRecord (
@@ -45,9 +68,8 @@ class BookItemModel: ObservableObject {
             amounts: 0,
             remarks: ""
         )
-        self.db.add(rec)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            self.selected = rec.id
+        DispatchQueue.global().async {
+            self.db.add(rec)
         }
         return rec.id
     }
@@ -59,6 +81,15 @@ class BookItemModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.selected = nil
         }
+    }
+    
+    func filterRecord() {
+        let rec = self.db.getRecords()
+            .filtered(by: NameFilter(string: self.filteringText))
+            .sorted(by: DateSotrter(.ascending))
+        self.items = rec.map { .init(id: $0.id, ref: self.db) }
+        
+        self.objectWillChange.send()
     }
 }
 
@@ -92,16 +123,18 @@ class BookItem: Identifiable, ObservableObject {
     
     @objc
     func databaseDidChange(notification: Notification) {
-        guard let info = notification.object as? AccountDatabaseChangeInfo else { return }
-        guard let prevRec = info.prevRecord else { return }
-        guard let newRec = info.newRecord else { return }
-        if prevRec.id == self.id {
-            self.id = newRec.id
-            self.date = newRec.date
-            self.category = newRec.category
-            self.name = newRec.name
-            self.amounts = newRec.amounts
-            self.remarks = newRec.remarks
+        DispatchQueue.main.async {
+            guard let info = notification.object as? AccountDatabaseChangeInfo else { return }
+            guard let prevRec = info.prevRecord else { return }
+            guard let newRec = info.newRecord else { return }
+            if prevRec.id == self.id {
+                self.id = newRec.id
+                self.date = newRec.date
+                self.category = newRec.category
+                self.name = newRec.name
+                self.amounts = newRec.amounts
+                self.remarks = newRec.remarks
+            }
         }
     }
 }

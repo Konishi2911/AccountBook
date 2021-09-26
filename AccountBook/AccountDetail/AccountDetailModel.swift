@@ -12,6 +12,12 @@ class AccountDetailModel: ObservableObject {
     private let ref_: AccountDatabase
     private var recID_: UUID
     
+    @Published var taxRate: Double = 0.0 {
+        didSet {
+            self.amount = UInt(Double(self.amount) * (1 + taxRate))
+        }
+    }
+    
     @Published var date: Date { didSet{self.fieldsDidUpdate()} }
     @Published var type: AccountCategory.AccountType { didSet{self.typeDidUpdate()} }
     @Published var categoryName: String { didSet{self.categoryDidUpdate()} }
@@ -22,7 +28,6 @@ class AccountDetailModel: ObservableObject {
     @Published var remarks: String { didSet{self.fieldsDidUpdate()} }
     
     let isNew: Bool
-    private var internalUpdating_: Bool = false
     
     /// Initializes Account Detail Model as new item.
     /// - Parameter ref: Database to add newly created item.
@@ -107,15 +112,9 @@ class AccountDetailModel: ObservableObject {
     
     private func typeDidUpdate() {
         self.categoryName = AccountCategoryManager(type: self.type).getChildCategoryNames().first!
-        self.subCategoryName = AccountCategoryManager(type: self.type, nameSequence: [self.categoryName])!.getChildCategoryNames().first ?? ""
     }
     
     private func categoryDidUpdate() {
-        guard self.internalUpdating_ else { return }
-        self.internalUpdating_ = true
-        
         self.subCategoryName = AccountCategoryManager(type: self.type, nameSequence: [self.categoryName])!.getChildCategoryNames().first ?? ""
-        
-        self.internalUpdating_ = false
     }
 }
