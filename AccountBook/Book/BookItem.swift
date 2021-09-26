@@ -15,10 +15,14 @@ class BookItemModel: ObservableObject {
     @Published var selected: UUID? {
         didSet { print(selected) }
     }
+    @Published var filteringText: String = "" {
+        didSet { self.filterRecord() }
+    }
         
     init(ref: AccountDatabase) {
         self.db = ref
-        let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
+        let rec = self.db.getRecords()
+            .sorted(by: DateSotrter(.ascending))
         self.items = rec.map{ BookItem(id: $0.id, ref: ref) }
         
         NotificationCenter.default.addObserver(
@@ -77,6 +81,15 @@ class BookItemModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.selected = nil
         }
+    }
+    
+    func filterRecord() {
+        let rec = self.db.getRecords()
+            .filtered(by: NameFilter(string: self.filteringText))
+            .sorted(by: DateSotrter(.ascending))
+        self.items = rec.map { .init(id: $0.id, ref: self.db) }
+        
+        self.objectWillChange.send()
     }
 }
 

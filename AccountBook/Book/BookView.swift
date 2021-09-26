@@ -37,7 +37,7 @@ struct BookView: View {
                 .toolbar {
                     ToolbarItem(placement: .automatic) {
                         HStack {
-                            SearchBar(text: self.$searchStr_)
+                            SearchBar(text: self.$model_.filteringText)
                                 .frame(minWidth: 100, idealWidth: 200, maxWidth: .infinity)
                         }
                     }

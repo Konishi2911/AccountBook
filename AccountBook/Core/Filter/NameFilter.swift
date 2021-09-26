@@ -11,6 +11,7 @@ struct NameFilter: FilterProtocol {
     let string: String
     
     func filter(_ record: AccountRecord) -> AccountRecord? {
+        guard string != "" else { return record }
         if record.name.contains(self.string) { return record }
         else { return nil }
     }
