@@ -12,6 +12,12 @@ class AccountDetailModel: ObservableObject {
     private let ref_: AccountDatabase
     private var recID_: UUID
     
+    @Published var taxRate: Double = 0.0 {
+        didSet {
+            self.amount = UInt(Double(self.amount) * (1 + taxRate))
+        }
+    }
+    
     @Published var date: Date { didSet{self.fieldsDidUpdate()} }
     @Published var type: AccountCategory.AccountType { didSet{self.typeDidUpdate()} }
     @Published var categoryName: String { didSet{self.categoryDidUpdate()} }
