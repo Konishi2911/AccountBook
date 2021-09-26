@@ -112,7 +112,6 @@ class AccountDetailModel: ObservableObject {
     
     private func typeDidUpdate() {
         self.categoryName = AccountCategoryManager(type: self.type).getChildCategoryNames().first!
-        self.subCategoryName = AccountCategoryManager(type: self.type, nameSequence: [self.categoryName])!.getChildCategoryNames().first ?? ""
     }
     
     private func categoryDidUpdate() {
