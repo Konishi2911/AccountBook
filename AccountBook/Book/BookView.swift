@@ -23,7 +23,7 @@ struct BookView: View {
                         NavigationLink(
                             destination: self.accountDetailView_(recID: item.id),
                             tag: item.id,
-                            selection: self.$model_.selected
+                            selection: self.$model_.selectedID
                         ) {
                             BookItemView(item: item)
                         }
@@ -72,6 +72,7 @@ struct BookView: View {
             withAnimation {
                 proxy.scrollTo(id, anchor: .center)
             }
+            self.model_.selectedID = id
         }
     }
 }
