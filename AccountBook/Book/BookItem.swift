@@ -10,11 +10,9 @@ import Combine
 
 class BookItemModel: ObservableObject {
     let db: AccountDatabase
-    var items: [BookItem]
+    var items: [BookItem] { willSet { self.objectWillChange.send() } }
     
-    @Published var selected: UUID? {
-        didSet { print(selected) }
-    }
+    @Published var selectedID: UUID?
     @Published var filteringText: String = "" {
         didSet { self.filterRecord() }
     }
@@ -38,7 +36,6 @@ class BookItemModel: ObservableObject {
             if info.changeMode == .added {
                 let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
                 self.items = rec.map{ BookItem(id: $0.id, ref: self.db) }
-                self.selected = info.newRecord?.id
             }
             else if info.changeMode == .removed {
                 let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
@@ -77,9 +74,6 @@ class BookItemModel: ObservableObject {
     func deleteRecord(_ indexSet: IndexSet) {
         for i in indexSet {
             self.db.remove(recordID: items[i].id)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            self.selected = nil
         }
     }
     
