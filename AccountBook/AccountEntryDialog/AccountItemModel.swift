@@ -19,7 +19,7 @@ class AccountItemModel: ObservableObject {
     }
     @Published var subCategoryName: String
     @Published var name: String
-    @Published var amount: Int = 0
+    @Published var amount: Int
     @Published var pcs: Int
     @Published var remarks: String
         

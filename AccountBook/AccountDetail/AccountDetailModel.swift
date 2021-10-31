@@ -14,7 +14,7 @@ class AccountDetailModel: ObservableObject {
     
     @Published var taxRate: Double = 0.0 {
         didSet {
-            self.amount = UInt(Double(self.amount) * (1 + taxRate))
+            self.amount = Int(Double(self.amount) * (1 + taxRate))
         }
     }
     
@@ -23,7 +23,7 @@ class AccountDetailModel: ObservableObject {
     @Published var categoryName: String { didSet{self.categoryDidUpdate()} }
     @Published var subCategoryName: String { didSet{self.fieldsDidUpdate()} }
     @Published var name: String { didSet{self.fieldsDidUpdate()} }
-    @Published var amount: UInt { didSet{self.fieldsDidUpdate()} }
+    @Published var amount: Int { didSet{ self.fieldsDidUpdate() } }
     @Published var pcs: UInt { didSet{self.fieldsDidUpdate()} }
     @Published var remarks: String { didSet{self.fieldsDidUpdate()} }
     
@@ -47,7 +47,7 @@ class AccountDetailModel: ObservableObject {
         self.categoryName = rec.category.getCategoryName(depth: 0)!
         self.subCategoryName = rec.category.getCategoryName(depth: 1) ?? ""
         self.name = rec.name
-        self.amount = rec.amounts
+        self.amount = Int(rec.amounts)
         self.pcs = rec.pcs
         self.remarks = rec.remarks
         self.isNew = true
@@ -70,7 +70,7 @@ class AccountDetailModel: ObservableObject {
         self.categoryName = record.category.getCategoryName(depth: 0)!
         self.subCategoryName = record.category.getCategoryName(depth: 1) ?? ""
         self.name = record.name
-        self.amount = record.amounts
+        self.amount = Int(record.amounts)
         self.pcs = record.pcs
         self.remarks = record.remarks
         self.isNew = false
@@ -103,7 +103,7 @@ class AccountDetailModel: ObservableObject {
             )!,
             name: self.name,
             pcs: self.pcs,
-            amounts: self.amount,
+            amounts: UInt(self.amount),
             remarks: self.remarks
         )
         self.ref_.replace(recordID: self.recID_, newRecord: rec)

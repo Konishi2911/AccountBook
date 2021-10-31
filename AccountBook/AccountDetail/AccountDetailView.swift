@@ -39,17 +39,13 @@ struct AccountDetailView: View {
                     Text("Outlay").tag(AccountItemModel.Direction.outlay)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .scaledToFit()
-                .frame(alignment: .leading)
-                Spacer()
                 DatePicker(
                     "",
                     selection: $model.date,
                     displayedComponents: .date
                 )
-                .scaledToFit()
                 .datePickerStyle(CompactDatePickerStyle())
-                .frame(alignment: .trailing)
+                .frame(width: 120)
             }
             self.categoryView
             Divider()
