@@ -10,10 +10,19 @@ import SwiftUI
 struct BarChartView: View {
     let source: BarChartSource
     let yValueFormatter: Formatter?
+    @Binding var selected: UUID?
     
-    init(source: BarChartSource, formatter: Formatter? = nil) {
+    // MARK: Private Properties
+    private let yLabelWidth: CGFloat = 30.0
+    
+    
+    init(source: BarChartSource,
+         formatter: Formatter? = nil,
+         selected: Binding<UUID?> = .constant(nil)
+    ) {
         self.source = source
         self.yValueFormatter = formatter
+        self._selected = selected
     }
     
     var body: some View {
@@ -26,43 +35,40 @@ struct BarChartView: View {
                         formatter: yValueFormatter ?? NumberFormatter()
                     )
                     ZStack {
-                        YLabelGridView(source: source)
-                        BarCollection(source: source)
+                        self.yGrids
+                        self.barCluster
                     }
                 }
             }
         }
     }
-}
-
-// MARK: BarCollection
-private struct BarCollection: View {
-    let source: BarChartSource
     
-    let yLabelWidth: CGFloat = 30
-    
-    var body: some View {
+    // - MARK: BarCluster
+    /// Draws Bar Shapes
+    var barCluster: some View {
         GeometryReader { geometry in
             HStack {
                 Spacer().frame(width: self.yLabelWidth)
-                ForEach(self.source.items) {
+                ForEach(self.source.items) { item in
                     BarItemView(
-                        model: $0, height: geometry.size.height
+                        model: item, height: geometry.size.height,
+                        selected: self.$selected
                     )
                         .frame(maxWidth: .infinity)
+                        .onTapGesture {
+                            if self.selected == item.id { self.selected = nil }
+                            else { self.selected = item.id }
+                        }
                 }
             }
         }
     }
-}
-
-// MARK: YLabelGridView
-private struct YLabelGridView: View {
-    let source: BarChartSource
     
-    var body: some View {
+    // - MARK: YLabelGrid
+    /// Draws grid lines of y axis.
+    var yGrids: some View {
         let ntics = self.source.yLabels.count
-        GeometryReader { geometry in
+        return GeometryReader { geometry in
             VStack {
                 ForEach(0 ..< ntics, id: \.self) {
                     GridItemView(
@@ -77,12 +83,9 @@ private struct YLabelGridView: View {
             }
         }
     }
-    
-    private func yOffset(order: Int, height: CGFloat) -> CGFloat {
-        let t = 1 - CGFloat(order) / CGFloat(self.source.yLabels.count - 1)
-        return 0.5 * height * (0.5 - t) * 2
-    }
 }
+
+
 
 // MARK: YLabelView
 private struct YLabelView: View {
@@ -146,11 +149,22 @@ private struct GridItemView: View {
 private struct BarItemView: View {
     let model: BarItemModel
     let height: CGFloat
+    @Binding var selected: UUID?
+    private var isActive: Bool {
+        guard let s = self.selected else { return true }
+        return s == model.id
+    }
     
     let labelHeight: CGFloat = 30
     
     let minBarWidth: CGFloat = 5
     let maxBarWidth: CGFloat = 30
+    
+    init(model: BarItemModel, height: CGFloat, selected: Binding<UUID?> = .constant(nil)) {
+        self.model = model
+        self.height = height
+        self._selected = selected
+    }
     
     var body: some View {
         let barHeight = self.height - labelHeight
@@ -160,7 +174,7 @@ private struct BarItemView: View {
             Spacer()
                 .frame(height: barHeight * (1 - length))
             RichRoundedRectangle(cornerMasks: [.top], cornerRadius: 5)
-                .fill(Color.blue)
+                .fill(self.isActive ? Color.blue : Color.gray)
                 .frame(height: barHeight * length)
                 .frame(minWidth: self.minBarWidth, maxWidth: self.maxBarWidth)
             Text(self.model.label).font(.body)
@@ -230,6 +244,7 @@ private struct BarItemModel: Identifiable {
 }
 
 struct BarChartView_Previews: PreviewProvider {
+    @State static private var selectedItem: UUID?
     static func currencyFormatter() -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
@@ -237,6 +252,10 @@ struct BarChartView_Previews: PreviewProvider {
     }
     static var previews: some View {
         let formatter = currencyFormatter()
-        BarChartView(source: BarChartSource.mock, formatter: formatter)
+        BarChartView(
+            source: BarChartSource.mock,
+            formatter: formatter,
+            selected: $selectedItem
+        )
     }
 }
