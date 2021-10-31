@@ -11,6 +11,7 @@
 		F820AE7226BF686D00DF0B6E /* StackChartSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820AE7126BF686D00DF0B6E /* StackChartSource.swift */; };
 		F821484C26FAE3E10038448C /* AccountDatabaseChangeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F821484B26FAE3E10038448C /* AccountDatabaseChangeInfo.swift */; };
 		F82AE1FD269C8B40007B51D4 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AE1FC269C8B40007B51D4 /* SidebarView.swift */; };
+		F844E343272E9ADB004219DE /* RichRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844E342272E9ADB004219DE /* RichRoundedRectangle.swift */; };
 		F862CD5726F8E87C00155FA8 /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F862CD5626F8E87C00155FA8 /* AccountDetailView.swift */; };
 		F862CD5926F8F08E00155FA8 /* AccountDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F862CD5826F8F08E00155FA8 /* AccountDatabaseTests.swift */; };
 		F862CD5D26F953BB00155FA8 /* AccountDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F862CD5C26F953BB00155FA8 /* AccountDetailModel.swift */; };
@@ -118,6 +119,7 @@
 		F820AE7126BF686D00DF0B6E /* StackChartSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackChartSource.swift; sourceTree = "<group>"; };
 		F821484B26FAE3E10038448C /* AccountDatabaseChangeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDatabaseChangeInfo.swift; sourceTree = "<group>"; };
 		F82AE1FC269C8B40007B51D4 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		F844E342272E9ADB004219DE /* RichRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichRoundedRectangle.swift; sourceTree = "<group>"; };
 		F862CD5626F8E87C00155FA8 /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 		F862CD5826F8F08E00155FA8 /* AccountDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDatabaseTests.swift; sourceTree = "<group>"; };
 		F862CD5C26F953BB00155FA8 /* AccountDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailModel.swift; sourceTree = "<group>"; };
@@ -208,6 +210,14 @@
 				F820AE7126BF686D00DF0B6E /* StackChartSource.swift */,
 			);
 			path = StackChart;
+			sourceTree = "<group>";
+		};
+		F844E341272E9AA2004219DE /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				F844E342272E9ADB004219DE /* RichRoundedRectangle.swift */,
+			);
+			name = Geometry;
 			sourceTree = "<group>";
 		};
 		F862CD5526F8E86100155FA8 /* AccountDetail */ = {
@@ -305,6 +315,7 @@
 		F8EEA489269AA0CF0067C5A4 /* AccountBook */ = {
 			isa = PBXGroup;
 			children = (
+				F844E341272E9AA2004219DE /* Geometry */,
 				F820AE6C26BF676800DF0B6E /* StackChart */,
 				F8948EF926BB4E690000DA0F /* DetailView */,
 				F8F17BBC26A0EBB600F92186 /* BarChart */,
@@ -602,6 +613,7 @@
 				F8F17BC126A8FC3000F92186 /* AccountEntryDialog.swift in Sources */,
 				F862CD5D26F953BB00155FA8 /* AccountDetailModel.swift in Sources */,
 				F88B7E0C26FED7DE00DA3AA9 /* NameFilter.swift in Sources */,
+				F844E343272E9ADB004219DE /* RichRoundedRectangle.swift in Sources */,
 				F820AE7026BF679E00DF0B6E /* StackChartView.swift in Sources */,
 				F8D57A3C26F8763700058F37 /* BookItemView.swift in Sources */,
 				F8EEA48B269AA0CF0067C5A4 /* AccountBookApp.swift in Sources */,

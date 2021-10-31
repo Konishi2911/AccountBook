@@ -159,7 +159,7 @@ private struct BarItemView: View {
         VStack {
             Spacer()
                 .frame(height: barHeight * (1 - length))
-            RoundedRectangle(cornerRadius: 5)
+            RichRoundedRectangle(cornerMasks: [.top], cornerRadius: 5)
                 .fill(Color.blue)
                 .frame(height: barHeight * length)
                 .frame(minWidth: self.minBarWidth, maxWidth: self.maxBarWidth)
