@@ -39,17 +39,14 @@ struct AccountEntryDialog: View {
                     Text("Outlay").tag(AccountItemModel.Direction.outlay)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .scaledToFit()
-                .frame(alignment: .leading)
-                Spacer()
                 DatePicker(
                     "",
                     selection: .constant(Date()),
                     displayedComponents: .date
                 )
-                .scaledToFit()
+                .labelsHidden()
                 .datePickerStyle(CompactDatePickerStyle())
-                .frame(alignment: .trailing)
+                .frame(width: 100)
             }
             self.categoryView
             Divider()
