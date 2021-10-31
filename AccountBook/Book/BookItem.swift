@@ -20,7 +20,7 @@ class BookItemModel: ObservableObject {
     init(ref: AccountDatabase) {
         self.db = ref
         let rec = self.db.getRecords()
-            .sorted(by: DateSotrter(.ascending))
+            .sorted(by: DateSotrter(.discending))
         self.items = rec.map{ BookItem(id: $0.id, ref: ref) }
         
         NotificationCenter.default.addObserver(
@@ -34,11 +34,11 @@ class BookItemModel: ObservableObject {
         DispatchQueue.main.async {
             guard let info = notification.object as? AccountDatabaseChangeInfo else { return }
             if info.changeMode == .added {
-                let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
+                let rec = self.db.getRecords().sorted(by: DateSotrter(.discending))
                 self.items = rec.map{ BookItem(id: $0.id, ref: self.db) }
             }
             else if info.changeMode == .removed {
-                let rec = self.db.getRecords().sorted(by: DateSotrter(.ascending))
+                let rec = self.db.getRecords().sorted(by: DateSotrter(.discending))
                 self.items = rec.map{ BookItem(id: $0.id, ref: self.db) }
             }
             /*

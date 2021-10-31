@@ -15,7 +15,12 @@ struct DateSotrter: SorterProtocol {
     }
     
     func sort(_ ids: [Int], ref: Database) -> [Int] {
-        return ids.sorted { ref[$0].date < ref[$1].date }
+        switch self.direction_ {
+        case .ascending:
+            return ids.sorted { ref[$0].date < ref[$1].date }
+        case .discending:
+            return ids.sorted { ref[$0].date > ref[$1].date }
+        }
     }
     
         
