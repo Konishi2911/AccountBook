@@ -30,7 +30,7 @@ class HistoryItemSource: ObservableObject {
         var tmp: [HistoryItem] = []
         for (index, rec) in self.ref
             .getRecords()
-            .sorted(by: DateSotrter(.ascending))
+            .sorted(by: DateSotrter(.discending))
             .getRecords()
         {
             tmp.append(.init(from: rec, id: index))
