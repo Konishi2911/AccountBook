@@ -7,18 +7,20 @@
 
 import SwiftUI
 
-struct BarChartView: View {
-    let source: BarChartSource
+struct BarChartView<SelectionValue>: View
+where SelectionValue: Hashable {
+    let source: BarChartSource<SelectionValue>
+                                
     let yValueFormatter: Formatter?
-    @Binding var selected: UUID?
+    @Binding var selected: SelectionValue?
     
     // MARK: Private Properties
     private let yLabelWidth: CGFloat = 30.0
     
     
-    init(source: BarChartSource,
+    init(source: BarChartSource<SelectionValue>,
          formatter: Formatter? = nil,
-         selected: Binding<UUID?> = .constant(nil)
+         selected: Binding<SelectionValue?> = .constant(nil)
     ) {
         self.source = source
         self.yValueFormatter = formatter
@@ -49,8 +51,8 @@ struct BarChartView: View {
         GeometryReader { geometry in
             HStack {
                 Spacer().frame(width: self.yLabelWidth)
-                ForEach(self.source.items) { item in
-                    BarItemView(
+                ForEach(self.source.barModels) { item in
+                    BarItemView<SelectionValue>(
                         model: item, height: geometry.size.height,
                         selected: self.$selected
                     )
@@ -88,8 +90,9 @@ struct BarChartView: View {
 
 
 // MARK: YLabelView
-private struct YLabelView: View {
-    let source: BarChartSource
+private struct YLabelView<SelectionValue>: View
+where SelectionValue: Hashable {
+    let source: BarChartSource<SelectionValue>
     let formatter: Formatter
     
     var body: some View {
@@ -146,10 +149,12 @@ private struct GridItemView: View {
 }
 
 // MARK: BarItemView
-private struct BarItemView: View {
-    let model: BarItemModel
+private struct BarItemView<SelectionValue>: View
+where SelectionValue: Hashable {
+    let model: BarItemModel<SelectionValue>
     let height: CGFloat
-    @Binding var selected: UUID?
+    @Binding var selected: SelectionValue?
+    
     private var isActive: Bool {
         guard let s = self.selected else { return true }
         return s == model.id
@@ -160,7 +165,7 @@ private struct BarItemView: View {
     let minBarWidth: CGFloat = 5
     let maxBarWidth: CGFloat = 30
     
-    init(model: BarItemModel, height: CGFloat, selected: Binding<UUID?> = .constant(nil)) {
+    init(model: BarItemModel<SelectionValue>, height: CGFloat, selected: Binding<SelectionValue?> = .constant(nil)) {
         self.model = model
         self.height = height
         self._selected = selected
@@ -182,13 +187,25 @@ private struct BarItemView: View {
     }
 }
 
-struct BarChartSource {
-    fileprivate let items: [BarItemModel]
+
+// MARK: - Models
+
+struct SelectableBarChartItemSource<SelectionValue>
+where SelectionValue: Hashable {
+    let id: SelectionValue
+    let label: String
+    let value: Double
+}
+
+struct BarChartSource<SelectionValue>
+where SelectionValue: Hashable {
+    fileprivate let barModels: [BarItemModel<SelectionValue>]
     let max: CGFloat
     let yMax: CGFloat
     
+    @available(*, deprecated)
     init(labels: [String], values: [Double]) {
-        var tmpItems: [BarItemModel] = []
+        var tmpItems: [BarItemModel<SelectionValue>] = []
         self.max = CGFloat(values.max() ?? 1)
         self.yMax = Self.roundUp(max, digits: 2)
         
@@ -201,7 +218,25 @@ struct BarChartSource {
                 )
             )
         }
-        self.items = tmpItems
+        self.barModels = tmpItems
+    }
+    
+    init(source: [SelectableBarChartItemSource<SelectionValue>]) {
+        var tmpItems: [BarItemModel<SelectionValue>] = []
+        self.max = CGFloat(source.compactMap{$0.value}.max() ?? 1)
+        self.yMax = Self.roundUp(max, digits: 2)
+        
+        for item in source {
+            tmpItems.append(
+                .init(
+                    label: item.label,
+                    length: CGFloat(item.value) / self.yMax,
+                    rawValue: item.value,
+                    id: item.id
+                )
+            )
+        }
+        self.barModels = tmpItems
     }
     
     var yLabels: [CGFloat] {
@@ -236,11 +271,19 @@ struct BarChartSource {
     }
 }
 
-private struct BarItemModel: Identifiable {
-    let id = UUID()
+private struct BarItemModel<SelectionValue>: Identifiable
+where SelectionValue: Hashable {
+    let id: SelectionValue
     let label: String
     let length: CGFloat
     let rawValue: Double
+    
+    init(label: String, length: CGFloat, rawValue: Double, id: SelectionValue = UUID() as! SelectionValue) {
+        self.label = label
+        self.length = length
+        self.rawValue = rawValue
+        self.id = id
+    }
 }
 
 struct BarChartView_Previews: PreviewProvider {

@@ -19,8 +19,10 @@ struct HighlightItemView<ViewType>: View where ViewType: View{
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(Color(NSColor.controlBackgroundColor))
-                .shadow(radius: 2)
+                .fill(Color(NSColor.controlBackgroundColor))
+                .shadow(color: Color(.sRGBLinear, white: 0.0, opacity: 0.2), radius: 5)
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(NSColor.systemGray), lineWidth: 0.3)
             VStack(alignment: .leading) {
                 if let titleStr = self.title {
                     Text(titleStr)

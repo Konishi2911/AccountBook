@@ -8,33 +8,27 @@
 import SwiftUI
 
 struct HighlightsView: View {
-    let model: HighlightsModel
+    private let db_: AccountDatabase
     
     init(db: AccountDatabase) {
-        self.model = .init(ref: db)
+        self.db_ = db
     }
     
     var body: some View {
         ScrollView {
             Spacer().frame(height: 10)
             HighlightItemView(title: "Outlay") {
-                BarChartView(source: self.model.usageBarChartSource(type: .outlay),
-                             formatter: self.model.currencyFormatter)
-                    .padding([.horizontal, .bottom])
+                UsageChartView(db: self.db_, accountType: .outlay)
             }
             .frame(height: 200)
             .padding(.horizontal)
             HighlightItemView(title: "Income") {
-                BarChartView(source: self.model.usageBarChartSource(type: .income),
-                             formatter: self.model.currencyFormatter)
-                    .padding([.horizontal, .bottom])
+                UsageChartView(db: self.db_, accountType: .income)
             }
             .frame(height: 200)
             .padding(.horizontal)
             HighlightItemView(title: "Borrowing") {
-                BarChartView(source: self.model.usageBarChartSource(type: .borrowing),
-                             formatter: self.model.currencyFormatter)
-                    .padding([.horizontal, .bottom])
+                UsageChartView(db: self.db_, accountType: .borrowing)
             }
             .frame(height: 200)
             .padding(.horizontal)
