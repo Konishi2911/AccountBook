@@ -12,14 +12,17 @@ struct StackChartView: View {
     
     let source: StackChartSource
     let valueFormatter: NumberFormatter
+    let order: StackChartSource.Direction
     
     
     init(source: StackChartSource,
          colorMap: ColorMap = .blue,
-         formatter: NumberFormatter = .init()
+         formatter: NumberFormatter = .init(),
+         order: StackChartSource.Direction = .descending
     ) {
         self.source = .init(items: source.items, colorMap: colorMap)
         self.valueFormatter = formatter
+        self.order = order
     }
     
     var body: some View {
@@ -32,34 +35,67 @@ struct StackChartView: View {
     func stackChart() -> some View {
         GeometryReader {geom in
             HStack(spacing: 0) {
-                ForEach(self.source.items(sortedBy: .ascending)) {
-                    RoundedRectangle(cornerRadius: self.chartWidth / 2)
-                        .frame(
-                            width: barWidth(value: $0.tuple.1, viewWidth: geom.size.width),
-                            height: self.chartWidth
-                        )
-                        .foregroundColor(Color($0.color))
+                let items = self.source.items(sortedBy: self.order)
+                if items.count == 1 {
+                    RichRoundedRectangle(
+                        cornerMasks: [.left, .right],
+                        cornerRadius: self.chartWidth / 2
+                    )
+                        .fill(Color(items.first!.color))
+                    .frame(
+                        width: barWidth(value: items.first!.tuple.1, viewWidth: geom.size.width),
+                        height: self.chartWidth
+                    )
+                } else {
+                    RichRoundedRectangle(
+                        cornerMasks: [.left],
+                        cornerRadius: self.chartWidth / 2
+                    )
+                        .fill(Color(items.first!.color))
+                    .frame(
+                        width: barWidth(value: items.first!.tuple.1, viewWidth: geom.size.width),
+                        height: self.chartWidth
+                    )
+                    ForEach(items[1..<items.count - 1]) { item in
+                        Rectangle()
+                            .fill(Color(item.color))
+                            .frame(
+                                width: barWidth(value: item.tuple.1, viewWidth: geom.size.width),
+                                height: self.chartWidth
+                            )
+                    }
+                    RichRoundedRectangle(
+                        cornerMasks: [.right],
+                        cornerRadius: self.chartWidth / 2
+                    )
+                        .fill(Color(items.last!.color))
+                    .frame(
+                        width: barWidth(value: items.last!.tuple.1, viewWidth: geom.size.width),
+                        height: self.chartWidth
+                    )
                 }
             }
         }.frame(height: self.chartWidth)
     }
     
     func legends() -> some View {
-        ScrollView(.vertical) {
-            VStack(alignment: .leading) {
-                ForEach(self.source.items(sortedBy: .ascending)) {
+        ScrollView(.horizontal) {
+            HStack(alignment: .center) {
+                ForEach(self.source.items(sortedBy: self.order)) {
                     self.legendItem(item: $0)
                 }
+                .padding(.trailing)
             }
+            .padding(.bottom)
         }
+        .padding([.horizontal])
     }
     
     func legendItem(item: StackChartSource.Item<Double>) -> some View {
         HStack {
-            RoundedRectangle(cornerRadius: 5)
-                .frame(maxWidth: 20)
-                .frame(height: 10)
-                .foregroundColor(Color(item.color))
+            Circle()
+                .fill(Color(item.color))
+                .frame(width: 10, height: 10)
             Text(
                 item.tuple.0 + ": " +
                 self.valueFormatter.string(from: NSNumber(value: Int(item.tuple.1)))!
