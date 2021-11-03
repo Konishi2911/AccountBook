@@ -12,7 +12,6 @@ struct UsageChartView: View {
     private let type_: AccountCategory.AccountType
     
     @ObservedObject private var model_: UsageChartModel
-    @State private var selected: UUID?
     
     
     /// Creates as usage chart for given account type.
@@ -26,12 +25,30 @@ struct UsageChartView: View {
     }
     
     var body: some View {
-        BarChartView(source: self.model_.usageBarChartSource(type: self.type_),
-                     formatter: self.model_.currencyFormatter,
-                     selected: self.$model_.selectedItem
-        )
-            .padding([.horizontal, .bottom])
-
+        VStack {
+            withAnimation(.easeIn(duration: 2)) {
+                BarChartView(source: self.model_.usageBarChartSource(type: self.type_),
+                             formatter: self.model_.currencyFormatter,
+                             selected: self.$model_.selectedItem
+                )
+                    .padding([.horizontal, .bottom])
+                    .frame(height: 180)
+            }
+            if let selectedMonth = self.model_.selectedItem {
+                UsageBreakdownView(
+                    ref: self.db_,
+                    duration: selectedMonth,
+                    type: self.type_
+                )
+                    .padding([.horizontal, .bottom])
+                    .transition(
+                        .asymmetric(
+                            insertion: .opacity.animation(.spring().delay(0.1)),
+                            removal: .opacity
+                        )
+                    )
+            }
+        }
     }
 }
 

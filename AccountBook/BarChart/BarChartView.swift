@@ -58,8 +58,10 @@ where SelectionValue: Hashable {
                     )
                         .frame(maxWidth: .infinity)
                         .onTapGesture {
-                            if self.selected == item.id { self.selected = nil }
-                            else { self.selected = item.id }
+                            withAnimation {
+                                if self.selected == item.id { self.selected = nil }
+                                else { self.selected = item.id }
+                            }
                         }
                 }
             }

@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct UsageBreakdownView: View {
-    private var source_: UsageBreakdownSource
+    private let source_: UsageBreakdownSource
+    private let duration_: Range<Date>
     
-    init(records: RecordCollection) {
-        self.source_ = UsageBreakdownSource(source: records)
+    init(ref: AccountDatabase, duration: Range<Date>, type: AccountCategory.AccountType) {
+        self.source_ = UsageBreakdownSource(ref: ref, type: type)
+        self.duration_ = duration
     }
     
     var body: some View {
-        StackChartView(source: self.source_.usageBreakdownChartSource)
+        StackChartView(
+            source: self.source_.usageBreakdownChartSource(duration: self.duration_)
+        )
     }
 }

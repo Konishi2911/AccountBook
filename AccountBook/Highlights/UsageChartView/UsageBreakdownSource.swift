@@ -8,20 +8,26 @@
 import Foundation
 
 struct UsageBreakdownSource {
-    private let source_: RecordCollection
+    private let db_: AccountDatabase
+    private let type_: AccountCategory.AccountType
     
-    /// Analyses and provides source object for usage breakdown chart from given records.
-    /// - Parameter source: a record collection to be analyzed.
-    init(source: RecordCollection) {
-        self.source_ = source
+    init(ref: AccountDatabase, type: AccountCategory.AccountType) {
+        self.type_ = type
+        self.db_ = ref
     }
     
+
     // TODO: Requires refactoring of the aggregating part
-    var usageBreakdownChartSource: StackChartSource {
-        let aggregator = CategoryAggregator(category: .init(type: .outlay))
-        let result = aggregator.aggregate(ref: self.source_)
+    func usageBreakdownChartSource(duration: Range<Date>) -> StackChartSource {
+        let aggregator = CategoryAggregator(category: .init(type: self.type_))
+        
+        let rec = self.db_.getRecords()
+            .filtered(by: DateFilter(
+                start: duration.lowerBound, end: duration.upperBound
+            ))
+        let data = aggregator.aggregate(ref: rec)
         return StackChartSource(
-            items: Dictionary(result.summed{$0.amounts}.map {
+            items: Dictionary(data.summed{$0.amounts}.map {
             return ($0.key.getCategoryNameStack().last!, Double($0.value))
         }) { (first, _) in first })
     }

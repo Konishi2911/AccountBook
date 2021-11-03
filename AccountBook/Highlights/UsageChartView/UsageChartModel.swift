@@ -45,18 +45,4 @@ class UsageChartModel: ObservableObject {
             )
         })
     }
-    
-    // TODO: Requires refactoring of the aggregating part
-    var usageBreakdownChartSource: StackChartSource {
-        let range = Date()..<Date()
-        let aggregator = CategoryAggregator(category: .init(type: .outlay))
-        
-        let rec = self.db_.getRecords()
-            .filtered(by: DateFilter(start: range.lowerBound, end: range.upperBound))
-        let data = aggregator.aggregate(ref: rec)
-        return StackChartSource(
-            items: Dictionary(data.summed{$0.amounts}.map {
-            return ($0.key.getCategoryNameStack().last!, Double($0.value))
-        }) { (first, _) in first })
-    }
 }

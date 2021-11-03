@@ -20,17 +20,14 @@ struct HighlightsView: View {
             HighlightItemView(title: "Outlay") {
                 UsageChartView(db: self.db_, accountType: .outlay)
             }
-            .frame(height: 200)
             .padding(.horizontal)
             HighlightItemView(title: "Income") {
                 UsageChartView(db: self.db_, accountType: .income)
             }
-            .frame(height: 200)
             .padding(.horizontal)
             HighlightItemView(title: "Borrowing") {
                 UsageChartView(db: self.db_, accountType: .borrowing)
             }
-            .frame(height: 200)
             .padding(.horizontal)
             Spacer().frame(height: 10)
         }
