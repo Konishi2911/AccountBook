@@ -13,11 +13,18 @@ class MonthlyAggregatorTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        /*
         self.aggregator = MonthlyAggregator(
             duration: DateInterval(
                 start: cal.date(from: DateComponents(year: 2020, month: 1, day: 1))!,
                 end: cal.date(from: DateComponents(year: 2022, month: 1, day: 1))!
             )
+        )
+         */
+        self.aggregator = MonthlyAggregator(
+            range:
+                cal.date(from: DateComponents(year: 2020, month: 1, day: 1))! ..<
+                cal.date(from: DateComponents(year: 2022, month: 1, day: 1))!
         )
     }
 
