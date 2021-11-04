@@ -18,7 +18,9 @@ struct UsageBreakdownView: View {
     
     var body: some View {
         StackChartView(
-            source: self.source_.usageBreakdownChartSource(duration: self.duration_)
+            source: self.source_.usageBreakdownChartSource(duration: self.duration_),
+            colorMap: .blue,
+            formatter: self.source_.legendFormatter
         )
     }
 }

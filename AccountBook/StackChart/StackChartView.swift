@@ -96,11 +96,14 @@ struct StackChartView: View {
             Circle()
                 .fill(Color(item.color))
                 .frame(width: 10, height: 10)
+            Text(item.tuple.0 + ": ")
+                .bold()
+                .foregroundColor(.gray)
+            +
             Text(
-                item.tuple.0 + ": " +
                 self.valueFormatter.string(from: NSNumber(value: Int(item.tuple.1)))!
             )
-            .font(.caption)
+                .font(.body)
         }
     }
     

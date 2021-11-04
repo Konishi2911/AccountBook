@@ -11,9 +11,14 @@ struct UsageBreakdownSource {
     private let db_: AccountDatabase
     private let type_: AccountCategory.AccountType
     
+    let legendFormatter: NumberFormatter
+    
     init(ref: AccountDatabase, type: AccountCategory.AccountType) {
         self.type_ = type
         self.db_ = ref
+        
+        self.legendFormatter = .init()
+        self.legendFormatter.numberStyle = .currency
     }
     
 
