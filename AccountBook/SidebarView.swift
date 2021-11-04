@@ -12,7 +12,7 @@ struct SidebarView: View {
     
     var body: some View {
         List {
-            NavigationLink(destination: HighlightsView()){
+            NavigationLink(destination: HighlightsView(db: db)){
                 Label("Highlights", systemImage: "lightbulb")
                     .font(.title3)
             }
