@@ -35,6 +35,7 @@
 		F8948EFD26BCA0780000DA0F /* RecordCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */; };
 		F8948EFE26BDF2710000DA0F /* RecordCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8948EFC26BCA0780000DA0F /* RecordCollectionProtocol.swift */; };
 		F8B201AA2707E2F300DD8B8F /* HighlightItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B201A92707E2F300DD8B8F /* HighlightItemView.swift */; };
+		F8BB2F2C27361BE90021B782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8EEA48E269AA0D10067C5A4 /* Assets.xcassets */; };
 		F8D57A2926F71AD500058F37 /* MonthlyAggregatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A2826F71AD500058F37 /* MonthlyAggregatorTests.swift */; };
 		F8D57A2B26F7290700058F37 /* StubbedDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A2A26F7290700058F37 /* StubbedDatabase.swift */; };
 		F8D57A2D26F73DBF00058F37 /* CategoryAggregatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D57A2C26F73DBF00058F37 /* CategoryAggregatorTests.swift */; };
@@ -50,7 +51,6 @@
 		F8EBB2B826FBED4500978C82 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EBB2B726FBED4500978C82 /* SearchBar.swift */; };
 		F8EEA48B269AA0CF0067C5A4 /* AccountBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEA48A269AA0CF0067C5A4 /* AccountBookApp.swift */; };
 		F8EEA48D269AA0CF0067C5A4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEA48C269AA0CF0067C5A4 /* ContentView.swift */; };
-		F8EEA48F269AA0D10067C5A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8EEA48E269AA0D10067C5A4 /* Assets.xcassets */; };
 		F8EEA492269AA0D10067C5A4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8EEA491269AA0D10067C5A4 /* Preview Assets.xcassets */; };
 		F8EEA49E269AA0D10067C5A4 /* AccountBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEA49D269AA0D10067C5A4 /* AccountBookTests.swift */; };
 		F8EEA4BB269AA2950067C5A4 /* AccountDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEA4BA269AA2950067C5A4 /* AccountDatabase.swift */; };
@@ -577,8 +577,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8BB2F2C27361BE90021B782 /* Assets.xcassets in Resources */,
 				F8EEA492269AA0D10067C5A4 /* Preview Assets.xcassets in Resources */,
-				F8EEA48F269AA0D10067C5A4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -842,6 +842,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = AccountBook/AccountBook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -866,6 +867,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = AccountBook/AccountBook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
